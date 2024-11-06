@@ -1,5 +1,3 @@
-Existing Products and Comparison with Library Hub
-
 There are several existing products that address library management needs, 
 including York University Library’s online system and Handy Library 
 Manager by PrimaSoft PC.
