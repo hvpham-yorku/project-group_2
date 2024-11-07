@@ -1,5 +1,7 @@
 README.md
 
+*** setup is in the main branch instead of Sprint 0 Folder.****
+
 Motivation and Project Description:
 The library hub application is designed to streamline library operations and enhance the user experience for both customers and librarians. The application addresses several needs:
 -	For patrons/customers: It simplifies searching, sorting, booking, and managing library items. Also allows patrons to add reviews and manage their accounts.
