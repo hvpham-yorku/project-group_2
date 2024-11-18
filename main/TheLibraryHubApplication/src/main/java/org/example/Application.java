@@ -7,7 +7,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+/*
+authenticationUI.java
+joptionpane window which take username password and checks with Table "loginInformation" on postgres
 
+application.java
+what to do here:
+create databaseManager
+and create and show the authenticator UI, once user is authenticated (from authentication.java) , it switches to the mainUI
+
+change this to mainUI.java
+
+ */
 public class Application
 {
     private JFrame frame;
@@ -50,7 +61,7 @@ public class Application
 
                 try  {
                     //rs.afterLast();
-                    books = new String[25][3]; //might have to change later on, right now this is hardcoded
+                    books = new String[25][3]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
 
                     //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
                     int i = 0;

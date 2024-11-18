@@ -5,7 +5,13 @@ public class DatabaseManager {
     private Statement st;
     private String databaseName;
     private ResultSet rs;
+/*
+DatabaseManager
+dont need to tableName
 
+
+create different function for each table
+ */
     public DatabaseManager(String tableName) {
         try {
             this.con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/libraryTest", "postgres" , "Kanwarjot@123");
@@ -17,6 +23,7 @@ public class DatabaseManager {
         }
     }
 
+    //get books
     public ResultSet getRs() {
         try{
             this.rs = this.st.executeQuery("select * from " + databaseName);
