@@ -30,7 +30,7 @@ public class Application
 
     Application()
     {
-        databaseManager = new DatabaseManager("books");
+        databaseManager = new DatabaseManager();
         frame = new JFrame();
         nameLabel = new JLabel("Enter Name:");
         showDbButton = new JButton("Show Database");
@@ -54,7 +54,7 @@ public class Application
         showDbButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ResultSet rs = databaseManager.getRs();
+                ResultSet rs = databaseManager.getBooks();
                 JFrame f = new JFrame();
 
                 String books[][] = null;
