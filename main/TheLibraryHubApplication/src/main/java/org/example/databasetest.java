@@ -1,5 +1,8 @@
 package org.example;
 import  java.sql.*;
+/*
+this class is jsut a test class to see how connecting to database works, not really needed to run the application.
+ */
 public class databasetest {
 
     public static void main(String[] args) {
