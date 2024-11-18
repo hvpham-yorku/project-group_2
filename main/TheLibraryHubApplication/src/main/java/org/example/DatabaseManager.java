@@ -36,6 +36,7 @@ create different function for each table
 
     public void getAuthentication(){
         //TODO might be used for combining authenticator class
-        
+        //TODO this is created different from getBooks because it should be accessing another DB possibly called Authenticator
+
     }
 }
