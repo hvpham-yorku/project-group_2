@@ -1,6 +1,5 @@
 README.md
 
-_*** setup is in the main branch instead of Sprint 0 Folder.****_
 
 How To Run TheLibraryHubApplication:
 1. git clone https://github.com/hvpham-yorku/project-group_2.git
