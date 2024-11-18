@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Book;
@@ -15,7 +16,22 @@ public class HelloDemo extends JFrame{
     private DatabaseManager databaseManager;
 
     public HelloDemo() {
+
+        panelMain = new JPanel();
+        Test = new JLabel("Enter your name:");
+        textName = new JTextField(20);  // 20 columns wide
+        btnClick = new JButton("Click me");
+        showDatabaseButton = new JButton("Show Database");
+
+        // Set up layout for panelMain
+        panelMain.setLayout(new FlowLayout());  // Simple layout for positioning components
+        panelMain.add(Test);
+        panelMain.add(textName);
+        panelMain.add(btnClick);
+        panelMain.add(showDatabaseButton);
+
         databaseManager = new DatabaseManager("books");
+
         btnClick.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
