@@ -45,13 +45,24 @@ public class LoginView extends JFrame{
         panelMain.add(registerClick);
         panelMain.add(showDatabaseButton);
 
+
+
         databaseManager = new DatabaseManager("books");
 
         loginClick.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
+               boolean success = loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
+
+                if (success){
+                    dispose();
+                    HomepageView homeView = new HomepageView();
+                    homeView.start();
+                }
+                else{
+
+                }
             }
         });
 
@@ -59,7 +70,9 @@ public class LoginView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                loginController.onRegisterButtonClick();
+
+                RegisterView registerView = new RegisterView(loginController);
+                registerView.start();
             }
         });
 

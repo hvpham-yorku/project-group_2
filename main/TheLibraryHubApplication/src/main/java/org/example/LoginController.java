@@ -25,17 +25,25 @@ public class LoginController {
     }
 
 
-    public void onLoginButtonClick(String username, String password) {
+    public boolean onLoginButtonClick(String username, String password) {
 
                 User user = userService.handleUserLogin(username, password);
 
                 boolean isSuccessfulLogin = user != null;
 
+                 if(isSuccessfulLogin){
 
-                if (isSuccessfulLogin){
+                  JOptionPane.showMessageDialog(null, "Successful Login", "Log in Success", JOptionPane.INFORMATION_MESSAGE);
+
+                 }else {
+                  //try again
+                    JOptionPane.showMessageDialog(null, "Invalid Login Input. Try Again", "Invalid", JOptionPane.INFORMATION_MESSAGE);
+                  }
+              /*  if (isSuccessfulLogin){
+                    //Got to homepage
 
                     // Create a new JFrame for the new page (or window)
-                    JFrame newFrame = new JFrame("New Page");
+                    JFrame newFrame = new JFrame("Homepage");
 
                     // Set the size and other properties of the new frame
                     newFrame.setSize(400, 300);
@@ -52,7 +60,9 @@ public class LoginController {
 
 
                 }
-                return;
+
+               */
+                return isSuccessfulLogin;
             }
 
 
@@ -70,8 +80,20 @@ public class LoginController {
 
  */
     // Event Handler for Register Button
-    public void onRegisterButtonClick() {
+    public boolean onRegisterButtonClick(String firstName, String lastName, String username, String password) {
 
+       Boolean registered = userService.handleRegisterUser(firstName, lastName, username, password);
+
+       if(registered){
+           //go back to login
+           JOptionPane.showMessageDialog(null, "Successfully Registered, Please login", "REGISTERED", JOptionPane.INFORMATION_MESSAGE);
+
+       }else {
+           //try again
+           JOptionPane.showMessageDialog(null, "Invalid Input or user already exists. Try Again", "Invalid", JOptionPane.INFORMATION_MESSAGE);
+       }
+
+       return registered;
 
     };
 

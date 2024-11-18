@@ -14,8 +14,8 @@ public class UserService {
         return userRepository.getUserById(id);
     }
 
-    public boolean handleRegisterUser(String firstName, String lastName, String userName, String password, String role) {
-        String validationMessage = validateUserRegistration(firstName, lastName, userName, password, role);
+    public boolean handleRegisterUser(String firstName, String lastName, String userName, String password) {
+        String validationMessage = validateUserRegistration(firstName, lastName, userName, password);
 
         if (!validationMessage.isEmpty()) {
             return false; 
@@ -60,7 +60,7 @@ public class UserService {
         return userRepository.validateUser(username, password);
     }
 
-    private String validateUserRegistration(String firstName, String lastName, String userName, String password, String role) {
+    private String validateUserRegistration(String firstName, String lastName, String userName, String password) {
         StringBuilder missingFields = new StringBuilder("Missing fields: ");
 
         if (firstName == null || firstName.trim().isEmpty()) missingFields.append("\nFirst Name, ");
@@ -71,7 +71,6 @@ public class UserService {
 
         if (password == null || password.trim().isEmpty()) missingFields.append("\nPassword, ");
 
-        if (role == null || role.trim().isEmpty()) missingFields.append("\nRole, ");
         
 
         if (missingFields.length() > "Missing fields: ".length()) {

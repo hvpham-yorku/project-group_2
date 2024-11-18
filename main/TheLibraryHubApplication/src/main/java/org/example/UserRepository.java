@@ -6,7 +6,7 @@ import java.sql.*;
 public class UserRepository {
 
     public void createUser(User user) {
-        String sql = "INSERT INTO users (firstName, lastName, username, password) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (firstName, lastName, username, password) VALUES (?, ?, ?, ?)";
     
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
