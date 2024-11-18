@@ -1,7 +1,6 @@
 package org.example;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +23,7 @@ public class Application
     private JFrame frame;
     private JLabel nameLabel;
     private JButton showDbButton;
-    private JButton enterButton;
+    private JButton searchButton;
     private JTextField textArea;
     private DatabaseManager databaseManager;
 
@@ -34,21 +33,45 @@ public class Application
         frame = new JFrame();
         nameLabel = new JLabel("Enter Name:");
         showDbButton = new JButton("Show Database");
-        enterButton = new JButton("Click Me");
+        searchButton = new JButton("Search");
         textArea = new JTextField();
         frame.setLayout(new GridLayout(2, 2));
         frame.add(nameLabel);
         frame.add(textArea);
         frame.add(showDbButton);
-        frame.add(enterButton);
+        frame.add(searchButton);
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        enterButton.addActionListener(new ActionListener() {
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(enterButton,textArea.getText()+"Hello I'm amazing.");
+                JOptionPane.showMessageDialog(searchButton,textArea.getText()+"");
+                ResultSet rs = databaseManager.getBooks();
+                JFrame frame = new JFrame(); //will see what to do with this.
+
+                String booksFound[][] = new String[25][4];
+
+                try{
+                    int i = 0;
+
+                    while (rs.getString(2) == textArea.getText()){
+                        booksFound[i][0] = rs.getString(1); // id
+
+                        booksFound[i][1] = rs.getString(2); // name of book
+                        booksFound[i][2] = rs.getString(3); // isbn
+                        if (rs.getString(4) == null)
+                            booksFound[i][3] = "0";
+                        else
+                            booksFound[i][3] = rs.getString(4); // # of inv
+                        i++;
+                    }
+                }catch (SQLException f){
+                    throw new RuntimeException(f);
+                }
+
+
             }
         });
         showDbButton.addActionListener(new ActionListener() {
@@ -61,16 +84,20 @@ public class Application
 
                 try  {
                     //rs.afterLast();
-                    books = new String[25][3]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
+                    books = new String[25][4]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
 
                     //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
                     int i = 0;
                     while (rs.next()) {
 
-                        books[i][0] = rs.getString(1);
+                        books[i][0] = rs.getString(1); // id
 
-                        books[i][1] = rs.getString(2);
-                        books[i][2] = rs.getString(3);
+                        books[i][1] = rs.getString(2); // name of book
+                        books[i][2] = rs.getString(3); // isbn
+                        if (rs.getString(4) == null)
+                            books[i][3] = "0";
+                        else
+                            books[i][3] = rs.getString(4); // # of inv
                         i++;
 
                         //System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
@@ -79,7 +106,7 @@ public class Application
                     throw new RuntimeException(ex);
                 }
 
-                String[] columnNames = {"id", "book name", "isbnNumber"};
+                String[] columnNames = {"id", "book name", "isbnNumber", "Inventory"};
 
                 JTable j = new JTable(books, columnNames);
                 JScrollPane sp = new JScrollPane(j);
@@ -93,5 +120,8 @@ public class Application
 
             }
         });
+    }
+    public static void displayJTable(){
+        
     }
 }
