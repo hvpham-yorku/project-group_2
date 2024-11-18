@@ -47,18 +47,20 @@ public class Application
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(searchButton,textArea.getText()+"");
+                JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"");
                 ResultSet rs = databaseManager.getBooks();
-                JFrame frame = new JFrame(); //will see what to do with this.
+                //JFrame frame = new JFrame(); //will see what to do with this.
 
                 String booksFound[][] = new String[25][4];
 
                 try{
-                    int i = 0;
-
+                    int i =0;
+                    int numBooksFound = 0;
 
                     while (rs.next()){
-                        if (rs.getString(2) == textArea.getText()){
+                        // for debugging JOptionPane.showMessageDialog(searchButton, "this is what rs.getString(2) returns :" + rs.getString(2));
+
+                        if (rs.getString(2).equals(textArea.getText())){
                             booksFound[i][0] = rs.getString(1); // id
                             booksFound[i][1] = rs.getString(2); // name of book
                             booksFound[i][2] = rs.getString(3); // isbn
@@ -66,13 +68,20 @@ public class Application
                                 booksFound[i][3] = "0";
                             else
                                 booksFound[i][3] = rs.getString(4); // # of inv
+                            numBooksFound++;
+                        }
+                        else{
+
                         }
                         i++;
                     }
+                    JOptionPane.showMessageDialog(searchButton, "Number of Books Found: " + numBooksFound);
+
                 }catch (SQLException f){
                     throw new RuntimeException(f);
                 }
-
+                //display jTable
+                displayJTable(booksFound);
 
             }
         });
@@ -80,7 +89,7 @@ public class Application
             @Override
             public void actionPerformed(ActionEvent e) {
                 ResultSet rs = databaseManager.getBooks();
-                JFrame f = new JFrame();
+                //JFrame f = new JFrame();
 
                 String books[][] = null;
 
@@ -107,23 +116,25 @@ public class Application
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-
-                String[] columnNames = {"id", "book name", "isbnNumber", "Inventory"};
-
-                JTable j = new JTable(books, columnNames);
-                JScrollPane sp = new JScrollPane(j);
-                f.setTitle("All Books");
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.add(sp);
-                f.setSize(500, 500);
-                f.setVisible(true);
+                //display here
+                displayJTable(books);
 
 
 
             }
         });
     }
-    public static void displayJTable(){
+    public static void displayJTable(String books[][]){
+        String[] columnNames = {"id", "book name", "isbnNumber", "Inventory"};
+
+        JFrame f = new JFrame();
+        JTable j = new JTable(books, columnNames);
+        JScrollPane sp = new JScrollPane(j);
+        f.setTitle("All Books");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.add(sp);
+        f.setSize(500, 500);
+        f.setVisible(true);
 
     }
 }
