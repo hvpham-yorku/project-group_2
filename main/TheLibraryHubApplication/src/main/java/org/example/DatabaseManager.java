@@ -6,11 +6,11 @@ public class DatabaseManager {
     private String databaseName;
     private ResultSet rs;
 
-    public DatabaseManager(String databaseName) {
+    public DatabaseManager(String tableName) {
         try {
             this.con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/libraryTest", "postgres" , "Kanwarjot@123");
             this.st = this.con.createStatement();
-            this.databaseName = databaseName;
+            this.databaseName = tableName;
 
         }catch (SQLException e){
             System.out.println(e);
