@@ -33,4 +33,9 @@ create different function for each table
         }
         return this.rs;
     }
+
+    public void getAuthentication(){
+        //TODO might be used for combining authenticator class
+        
+    }
 }
