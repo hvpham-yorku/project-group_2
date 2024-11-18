@@ -69,11 +69,9 @@ public class Application
                             else
                                 booksFound[i][3] = rs.getString(4); // # of inv
                             numBooksFound++;
+                            i++;
                         }
-                        else{
 
-                        }
-                        i++;
                     }
                     JOptionPane.showMessageDialog(searchButton, "Number of Books Found: " + numBooksFound);
 
