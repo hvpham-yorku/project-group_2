@@ -2,44 +2,65 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.Book;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-public class HelloDemo extends JFrame{
+public class LoginView extends JFrame{
     public JPanel panelMain;
-    private JLabel Test;
-    private JTextField textName;
-    private JButton btnClick;
+    private JLabel userLabel;
+    private JLabel passLabel;
+    private JPasswordField password;
+    private JTextField username;
+    private JButton registerClick;
+    private JButton loginClick;
     private JButton showDatabaseButton;
     private DatabaseManager databaseManager;
-    static LoginController loginController = LoginController.getInstance();
 
-    public HelloDemo() {
+    private static LoginController loginController;
+    private UserService userService;
 
+    public LoginView(LoginController loginController) {
+        LoginView.loginController = loginController;
+    }
+    public void start() {
         panelMain = new JPanel();
-        Test = new JLabel("Enter your name:");
-        textName = new JTextField(20);  // 20 columns wide
-        btnClick = new JButton("Click me");
+        userLabel = new JLabel("Username:");
+        username = new JTextField(20);  // 20 columns wide
+        passLabel = new JLabel("Password:");
+        password = new JPasswordField(20);  // 20 columns wide
+        loginClick = new JButton("Login");
+        registerClick = new JButton("Register");
         showDatabaseButton = new JButton("Show Database");
 
 
         // Set up layout for panelMain
         panelMain.setLayout(new FlowLayout());  // Simple layout for positioning components
-        panelMain.add(Test);
-        panelMain.add(textName);
-        panelMain.add(btnClick);
+        panelMain.add(userLabel);
+        panelMain.add(username);
+        panelMain.add(loginClick);
+        panelMain.add(passLabel);
+        panelMain.add(password);
+        panelMain.add(registerClick);
         panelMain.add(showDatabaseButton);
 
         databaseManager = new DatabaseManager("books");
 
-        btnClick.addActionListener(new ActionListener() {
+        loginClick.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(btnClick,textName.getText()+"Hello I'm amazing.");
+
+                loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
             }
         });
+
+        registerClick.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                loginController.onRegisterButtonClick();
+            }
+        });
+
         showDatabaseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,7 +69,7 @@ public class HelloDemo extends JFrame{
 
                 String books[][] = null;
 
-                try  {
+                try {
                     //rs.afterLast();
                     books = new String[25][3];
                     //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
@@ -78,22 +99,10 @@ public class HelloDemo extends JFrame{
                 f.setVisible(true);
 
 
-
             }
         });
+
     }
 
-    public static void main(String[] args) {
 
-
-        // Start the first Login View
-        LoginView h = new LoginView(loginController);
-        h.start();
-
-        h.setContentPane(h.panelMain);
-        h.setTitle("BABOYEE");
-        h.setSize(500,500);
-        h.setVisible(true);
-        h.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
 }
