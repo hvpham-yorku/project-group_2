@@ -56,15 +56,17 @@ public class Application
                 try{
                     int i = 0;
 
-                    while (rs.getString(2) == textArea.getText()){
-                        booksFound[i][0] = rs.getString(1); // id
 
-                        booksFound[i][1] = rs.getString(2); // name of book
-                        booksFound[i][2] = rs.getString(3); // isbn
-                        if (rs.getString(4) == null)
-                            booksFound[i][3] = "0";
-                        else
-                            booksFound[i][3] = rs.getString(4); // # of inv
+                    while (rs.next()){
+                        if (rs.getString(2) == textArea.getText()){
+                            booksFound[i][0] = rs.getString(1); // id
+                            booksFound[i][1] = rs.getString(2); // name of book
+                            booksFound[i][2] = rs.getString(3); // isbn
+                            if (rs.getString(4) == null)
+                                booksFound[i][3] = "0";
+                            else
+                                booksFound[i][3] = rs.getString(4); // # of inv
+                        }
                         i++;
                     }
                 }catch (SQLException f){
