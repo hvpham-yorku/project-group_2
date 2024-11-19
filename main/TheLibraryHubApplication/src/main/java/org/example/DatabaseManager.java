@@ -1,5 +1,8 @@
 package org.example;
 import java.sql.*;
+
+import static org.example.Main.*;
+
 public class DatabaseManager {
     private Connection con;
     private Statement st;
@@ -14,7 +17,7 @@ create different function for each table
  */
     public DatabaseManager() {
         try {
-            this.con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
+            this.con = DriverManager.getConnection(urlDatabase, usernameDatabase, passwordDatabase);
             this.st = this.con.createStatement();
             //this.databaseName = tableName;
 
