@@ -17,6 +17,6 @@ public class Main {
         h.setVisible(true);
         h.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
+        //Application app = new Application();
     }
 }

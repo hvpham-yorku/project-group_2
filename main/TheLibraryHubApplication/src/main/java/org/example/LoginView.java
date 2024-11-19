@@ -47,7 +47,7 @@ public class LoginView extends JFrame{
 
 
 
-        databaseManager = new DatabaseManager("books");
+        databaseManager = new DatabaseManager();
 
         loginClick.addActionListener(new ActionListener() {
             @Override
@@ -79,7 +79,7 @@ public class LoginView extends JFrame{
         showDatabaseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ResultSet rs = databaseManager.getRs();
+                ResultSet rs = databaseManager.getBooks();
                 JFrame f = new JFrame();
 
                 String books[][] = null;

@@ -67,7 +67,7 @@ public class RegisterView extends JFrame{
         this.setSize(400, 300); // Set the window size
         this.setVisible(true);
 
-        databaseManager = new DatabaseManager("books");
+        databaseManager = new DatabaseManager();
         
 
         registerClick.addActionListener(new ActionListener() {
