@@ -6,7 +6,7 @@ import static org.example.Main.*;
 public class DatabaseManager {
     private Connection con;
     private Statement st;
-    //private String databaseName; its actually tableName
+    //private String databaseName; its actually tableName but not needed anymore; better functionality
     private ResultSet rs;
 /*
 DatabaseManager
