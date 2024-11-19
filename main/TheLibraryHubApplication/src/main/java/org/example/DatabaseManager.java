@@ -3,27 +3,40 @@ import java.sql.*;
 public class DatabaseManager {
     private Connection con;
     private Statement st;
-    private String databaseName;
+    //private String databaseName; its actually tableName
     private ResultSet rs;
+/*
+DatabaseManager
+dont need to tableName
 
-    public DatabaseManager(String databaseName) {
+
+create different function for each table
+ */
+    public DatabaseManager() {
         try {
             this.con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/libraryTest", "postgres" , "Kanwarjot@123");
             this.st = this.con.createStatement();
-            this.databaseName = databaseName;
+            //this.databaseName = tableName;
 
         }catch (SQLException e){
             System.out.println(e);
         }
     }
 
-    public ResultSet getRs() {
+    //get books
+    public ResultSet getBooks() {
         try{
-            this.rs = this.st.executeQuery("select * from " + databaseName);
+            this.rs = this.st.executeQuery("select * from books");
 
         } catch (SQLException e) {
             System.out.println(e);
         }
         return this.rs;
+    }
+
+    public void getAuthentication(){
+        //TODO might be used for combining authenticator class
+        //TODO this is created different from getBooks because it should be accessing another DB possibly called Authenticator
+
     }
 }
