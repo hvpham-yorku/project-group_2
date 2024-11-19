@@ -14,7 +14,7 @@ create different function for each table
  */
     public DatabaseManager() {
         try {
-            this.con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/libraryTest", "postgres" , "Kanwarjot@123");
+            this.con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
             this.st = this.con.createStatement();
             //this.databaseName = tableName;
 
