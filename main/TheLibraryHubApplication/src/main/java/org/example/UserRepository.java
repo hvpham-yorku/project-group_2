@@ -2,13 +2,15 @@ package org.example;
 
 import java.sql.*;
 
+import static org.example.Main.*;
+
 
 public class UserRepository {
 
     public void createUser(User user) {
         String sql = "INSERT INTO users (firstName, lastName, username, password) VALUES (?, ?, ?, ?)";
     
-        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
+        try (Connection conn = DriverManager.getConnection(urlDatabase, usernameDatabase , passwordDatabase);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 
@@ -31,7 +33,7 @@ public class UserRepository {
     public User getUserById(int id) {
         String sql = "SELECT * FROM users WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
+        try (Connection conn = DriverManager.getConnection(urlDatabase, usernameDatabase , passwordDatabase);
 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -54,7 +56,7 @@ public class UserRepository {
     public User getUserByUsername(String username) {
         String sql = "SELECT * FROM users WHERE username = ?";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
+        try (Connection conn = DriverManager.getConnection(urlDatabase, usernameDatabase , passwordDatabase);
 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -76,7 +78,7 @@ public class UserRepository {
     public User validateUser(String username, String password) {
         String sql = "SELECT * FROM users WHERE userName = ? AND password = ?";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
+        try (Connection conn = DriverManager.getConnection(urlDatabase, usernameDatabase , passwordDatabase);
 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -100,7 +102,7 @@ public class UserRepository {
     public void updateUser(User user, String role) {
         String sql = "UPDATE users SET firstName = ?, lastName = ?, password = ? WHERE username = ?";
     
-        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
+        try (Connection conn = DriverManager.getConnection(urlDatabase, usernameDatabase , passwordDatabase);
 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -131,7 +133,7 @@ public class UserRepository {
     public void deleteUser(String username) {
         String sql = "DELETE FROM users WHERE username = ?";
     
-        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
+        try (Connection conn = DriverManager.getConnection(urlDatabase, usernameDatabase , passwordDatabase);
 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -168,7 +170,7 @@ public class UserRepository {
     public void updateUserProfile(User user) {
         String sql = "UPDATE users SET password = ? WHERE username = ?";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/librarytest", "noahvukosa" , "1234");
+        try (Connection conn = DriverManager.getConnection(urlDatabase, usernameDatabase , passwordDatabase);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, user.getPassword());
