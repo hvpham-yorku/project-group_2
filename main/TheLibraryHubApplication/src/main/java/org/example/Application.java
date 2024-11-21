@@ -137,8 +137,8 @@ public class Application
 
     }
     //using for test
-    public static void main(String[] args) {
-        Application app = new Application();
-        //displayJTable();
-    }
+//    public static void main(String[] args) {
+//        Application app = new Application();
+//        //displayJTable();
+//    }
 }
