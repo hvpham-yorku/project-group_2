@@ -26,6 +26,8 @@ public class Application
     private JButton searchButton;
     private JTextField textArea;
     private DatabaseManager databaseManager;
+    private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
+    private String booksFound[][] = new String[25][7];
 
     Application()
     {
@@ -51,7 +53,7 @@ public class Application
                 ResultSet rs = databaseManager.getBooks();
                 //JFrame frame = new JFrame(); //will see what to do with this.
 
-                String booksFound[][] = new String[25][4];
+                //String booksFound[][] = new String[25][7];
 
                 try{
                     int i =0;
@@ -83,11 +85,10 @@ public class Application
                 ResultSet rs = databaseManager.getBooks();
                 //JFrame f = new JFrame();
 
-                String books[][] = null;
+
 
                 try  {
                     //rs.afterLast();
-                    books = new String[25][4]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
 
                     //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
                     int i = 0;
@@ -110,7 +111,7 @@ public class Application
         });
     }
     public static void displayJTable(String books[][]){
-        String[] columnNames = {"id", "book name", "isbnNumber", "Inventory"};
+        String[] columnNames = {"id", "book name", "isbnNumber", "checked_out", "due_date", "checked_out_date", "current_book_user"};
 
         JFrame f = new JFrame();
         JTable j = new JTable(books, columnNames);
@@ -129,10 +130,20 @@ public class Application
         books[i][0] = rs.getString(1); // id
         books[i][1] = rs.getString(2); // name of book
         books[i][2] = rs.getString(3); // isbn
-        if (rs.getString(4) == null)
-            books[i][3] = "0";
+        books[i][3] = rs.getString(4); // checked out boolean
+        if (rs.getString(5) == null) // due date
+            books[i][4] = "N/A";
         else
-            books[i][3] = rs.getString(4); // # of inv
+            books[i][4] = rs.getString(5);
+        if (rs.getString(6) == null) //checkout  date
+            books[i][5] = "N/A";
+        else
+            books[i][5] = rs.getString(6);
+        if (rs.getString(7) == null) // current book user
+            books[i][6] = "N/A";
+        else
+            books[i][6] = rs.getString(7);
+
 
     }
     //using for test
