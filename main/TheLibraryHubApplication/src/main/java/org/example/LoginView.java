@@ -32,15 +32,17 @@ public class LoginView extends JFrame{
         loginClick = new JButton("Login");
         registerClick = new JButton("Register");
 
-
+        //panelMain.setPreferredSize(new Dimension(4, 4));
+        loginClick.setPreferredSize(new Dimension(100, 30));
+        registerClick.setPreferredSize(new Dimension(100, 30));
 
         // Set up layout for panelMain
         panelMain.setLayout(new FlowLayout());  // Simple layout for positioning components
         panelMain.add(userLabel);
         panelMain.add(username);
-        panelMain.add(loginClick);
         panelMain.add(passLabel);
         panelMain.add(password);
+        panelMain.add(loginClick);
         panelMain.add(registerClick);
 
 
@@ -75,7 +77,7 @@ public class LoginView extends JFrame{
             }
         });
 
-
+        //panelMain.setPreferredSize(new Dimension(300, 222));
 
     }
 
