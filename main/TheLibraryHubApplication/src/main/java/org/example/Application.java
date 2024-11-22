@@ -61,13 +61,7 @@ public class Application
                         // for debugging JOptionPane.showMessageDialog(searchButton, "this is what rs.getString(2) returns :" + rs.getString(2));
 
                         if (rs.getString(2).equals(textArea.getText())){
-                            booksFound[i][0] = rs.getString(1); // id
-                            booksFound[i][1] = rs.getString(2); // name of book
-                            booksFound[i][2] = rs.getString(3); // isbn
-                            if (rs.getString(4) == null)
-                                booksFound[i][3] = "0";
-                            else
-                                booksFound[i][3] = rs.getString(4); // # of inv
+                            booksParser(rs, booksFound, i);
                             numBooksFound++;
                             i++;
                         }
@@ -97,16 +91,9 @@ public class Application
 
                     //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
                     int i = 0;
-                    while (rs.next()) {
+                    while (rs.next()) { //TODO change this into static method
 
-                        books[i][0] = rs.getString(1); // id
-
-                        books[i][1] = rs.getString(2); // name of book
-                        books[i][2] = rs.getString(3); // isbn
-                        if (rs.getString(4) == null)
-                            books[i][3] = "0";
-                        else
-                            books[i][3] = rs.getString(4); // # of inv
+                        booksParser(rs, books, i);
                         i++;
 
                         //System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
@@ -129,10 +116,29 @@ public class Application
         JTable j = new JTable(books, columnNames);
         JScrollPane sp = new JScrollPane(j);
         f.setTitle("All Books");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.add(sp);
         f.setSize(500, 500);
         f.setVisible(true);
 
     }
+    // it will parse the books Table, use this to make changes so call this method only once a
+    // and everything is updated TODO TELL NOAH @#@#@#@#@!@!@
+    public static void booksParser(ResultSet rs, String books[][], int i) throws SQLException{
+
+        books[i][0] = rs.getString(1); // id
+
+        books[i][1] = rs.getString(2); // name of book
+        books[i][2] = rs.getString(3); // isbn
+        if (rs.getString(4) == null)
+            books[i][3] = "0";
+        else
+            books[i][3] = rs.getString(4); // # of inv
+
+    }
+    //using for test
+//    public static void main(String[] args) {
+//        Application app = new Application();
+//        //displayJTable();
+//    }
 }

@@ -86,12 +86,12 @@ public class LoginView extends JFrame{
 
                 try {
                     //rs.afterLast();
-                    books = new String[25][3];
+                    books = new String[25][3]; //TODO change to 4
                     //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
                     int i = 0;
                     while (rs.next()) {
 
-                        books[i][0] = rs.getString(1);
+                        books[i][0] = rs.getString(1); //TODO make a method for this
 
                         books[i][1] = rs.getString(2);
                         books[i][2] = rs.getString(3);
@@ -103,7 +103,7 @@ public class LoginView extends JFrame{
                     throw new RuntimeException(ex);
                 }
 
-                String[] columnNames = {"id", "book name", "isbnNumber"};
+                String[] columnNames = {"id", "book name", "isbnNumber"}; //TODO add another column ****@#@#@
 
                 JTable j = new JTable(books, columnNames);
                 JScrollPane sp = new JScrollPane(j);
