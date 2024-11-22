@@ -6,6 +6,7 @@ public class Main {
     //change this depending on your own system settings
     static LoginController loginController = LoginController.getInstance();
     static String urlDatabase = "jdbc:postgresql://127.0.0.1:5432/libraryTest";
+
     static String usernameDatabase = "postgres";
     static String passwordDatabase = "Kanwarjot@123";
 // test
@@ -23,4 +24,6 @@ public class Main {
 
         //Application app = new Application();
     }
+
+
 }

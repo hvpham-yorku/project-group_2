@@ -26,13 +26,15 @@ public class Application
     private JButton searchButton;
     private JTextField textArea;
     private DatabaseManager databaseManager;
+    private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
+    private String booksFound[][] = new String[25][7];
 
     Application()
     {
         databaseManager = new DatabaseManager();
         frame = new JFrame();
         nameLabel = new JLabel("Enter Name:");
-        showDbButton = new JButton("Show Database");
+        showDbButton = new JButton("Show Inventory");
         searchButton = new JButton("Search");
         textArea = new JTextField();
         frame.setLayout(new GridLayout(2, 2));
@@ -51,7 +53,7 @@ public class Application
                 ResultSet rs = databaseManager.getBooks();
                 //JFrame frame = new JFrame(); //will see what to do with this.
 
-                String booksFound[][] = new String[25][4];
+                //String booksFound[][] = new String[25][7];
 
                 try{
                     int i =0;
@@ -61,13 +63,7 @@ public class Application
                         // for debugging JOptionPane.showMessageDialog(searchButton, "this is what rs.getString(2) returns :" + rs.getString(2));
 
                         if (rs.getString(2).equals(textArea.getText())){
-                            booksFound[i][0] = rs.getString(1); // id
-                            booksFound[i][1] = rs.getString(2); // name of book
-                            booksFound[i][2] = rs.getString(3); // isbn
-                            if (rs.getString(4) == null)
-                                booksFound[i][3] = "0";
-                            else
-                                booksFound[i][3] = rs.getString(4); // # of inv
+                            booksParser(rs, booksFound, i);
                             numBooksFound++;
                             i++;
                         }
@@ -89,24 +85,16 @@ public class Application
                 ResultSet rs = databaseManager.getBooks();
                 //JFrame f = new JFrame();
 
-                String books[][] = null;
+
 
                 try  {
                     //rs.afterLast();
-                    books = new String[25][4]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
 
                     //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
                     int i = 0;
-                    while (rs.next()) {
+                    while (rs.next()) { //TODO change this into static method
 
-                        books[i][0] = rs.getString(1); // id
-
-                        books[i][1] = rs.getString(2); // name of book
-                        books[i][2] = rs.getString(3); // isbn
-                        if (rs.getString(4) == null)
-                            books[i][3] = "0";
-                        else
-                            books[i][3] = rs.getString(4); // # of inv
+                        booksParser(rs, books, i);
                         i++;
 
                         //System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
@@ -123,16 +111,44 @@ public class Application
         });
     }
     public static void displayJTable(String books[][]){
-        String[] columnNames = {"id", "book name", "isbnNumber", "Inventory"};
+        String[] columnNames = {"id", "book name", "isbnNumber", "checked_out", "due_date", "checked_out_date", "current_book_user"};
 
         JFrame f = new JFrame();
         JTable j = new JTable(books, columnNames);
         JScrollPane sp = new JScrollPane(j);
         f.setTitle("All Books");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.add(sp);
         f.setSize(500, 500);
         f.setVisible(true);
 
     }
+    // it will parse the books Table, use this to make changes so call this method only once a
+    // and everything is updated TODO TELL NOAH @#@#@#@#@!@!@
+    public static void booksParser(ResultSet rs, String books[][], int i) throws SQLException{
+
+        books[i][0] = rs.getString(1); // id
+        books[i][1] = rs.getString(2); // name of book
+        books[i][2] = rs.getString(3); // isbn
+        books[i][3] = rs.getString(4); // checked out boolean
+        if (rs.getString(5) == null) // due date
+            books[i][4] = "N/A";
+        else
+            books[i][4] = rs.getString(5);
+        if (rs.getString(6) == null) //checkout  date
+            books[i][5] = "N/A";
+        else
+            books[i][5] = rs.getString(6);
+        if (rs.getString(7) == null) // current book user
+            books[i][6] = "N/A";
+        else
+            books[i][6] = rs.getString(7);
+
+
+    }
+    //using for test
+//    public static void main(String[] args) {
+//        Application app = new Application();
+//        //displayJTable();
+//    }
 }
