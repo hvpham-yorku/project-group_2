@@ -15,7 +15,6 @@ public class LoginView extends JFrame{
     private JTextField username;
     private JButton registerClick;
     private JButton loginClick;
-    private JButton showDatabaseButton;
     private DatabaseManager databaseManager;
 
     private static LoginController loginController;
@@ -32,18 +31,20 @@ public class LoginView extends JFrame{
         password = new JPasswordField(20);  // 20 columns wide
         loginClick = new JButton("Login");
         registerClick = new JButton("Register");
-        showDatabaseButton = new JButton("Show Database");
 
+        //panelMain.setPreferredSize(new Dimension(4, 4));
+        loginClick.setPreferredSize(new Dimension(100, 30));
+        registerClick.setPreferredSize(new Dimension(100, 30));
 
         // Set up layout for panelMain
         panelMain.setLayout(new FlowLayout());  // Simple layout for positioning components
         panelMain.add(userLabel);
         panelMain.add(username);
-        panelMain.add(loginClick);
         panelMain.add(passLabel);
         panelMain.add(password);
+        panelMain.add(loginClick);
         panelMain.add(registerClick);
-        panelMain.add(showDatabaseButton);
+
 
 
 
@@ -76,46 +77,7 @@ public class LoginView extends JFrame{
             }
         });
 
-        showDatabaseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ResultSet rs = databaseManager.getBooks();
-                JFrame f = new JFrame();
-
-                String books[][] = null;
-
-                try {
-                    //rs.afterLast();
-                    books = new String[25][3]; //TODO change to 4
-                    //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
-                    int i = 0;
-                    while (rs.next()) {
-
-                        books[i][0] = rs.getString(1); //TODO make a method for this
-
-                        books[i][1] = rs.getString(2);
-                        books[i][2] = rs.getString(3);
-                        i++;
-
-                        //System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
-                    }
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                String[] columnNames = {"id", "book name", "isbnNumber"}; //TODO add another column ****@#@#@
-
-                JTable j = new JTable(books, columnNames);
-                JScrollPane sp = new JScrollPane(j);
-                f.setTitle("All Books");
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.add(sp);
-                f.setSize(500, 500);
-                f.setVisible(true);
-
-
-            }
-        });
+        //panelMain.setPreferredSize(new Dimension(300, 222));
 
     }
 
