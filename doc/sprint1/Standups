@@ -18,7 +18,7 @@ o	Finalizing the choice of encryption library for password hashing.
 
 
 
-[16 November 2024] - Sprint 1 Standup 2
+[18 November 2024] - Sprint 1 Standup 2
 
 What did you work on since the last standup? 
 o	Designed the basic structure for the search interface.
@@ -38,7 +38,7 @@ o	Need to finalize the database indexing strategy to optimize search performance
 
 
 
-[17 November 2024] - Sprint 1 Standup 3
+[21 November 2024] - Sprint 1 Standup 3
 
 What did you work on since the last standup? 
 o	Connected the librarian interface to the database to fetch book inventory data.
