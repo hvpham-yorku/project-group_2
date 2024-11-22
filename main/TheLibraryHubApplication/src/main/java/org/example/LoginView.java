@@ -57,8 +57,8 @@ public class LoginView extends JFrame{
 
                 if (success){
                     dispose();
-                    HomepageView homeView = new HomepageView();
-                    homeView.start();
+                    Application homeView = new Application();
+                    //homeView.start();
                 }
                 else{
 
