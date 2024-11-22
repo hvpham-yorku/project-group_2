@@ -32,7 +32,7 @@ public class Application
         databaseManager = new DatabaseManager();
         frame = new JFrame();
         nameLabel = new JLabel("Enter Name:");
-        showDbButton = new JButton("Show Database");
+        showDbButton = new JButton("Show Inventory");
         searchButton = new JButton("Search");
         textArea = new JTextField();
         frame.setLayout(new GridLayout(2, 2));
