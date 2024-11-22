@@ -127,7 +127,6 @@ public class Application
     public static void booksParser(ResultSet rs, String books[][], int i) throws SQLException{
 
         books[i][0] = rs.getString(1); // id
-
         books[i][1] = rs.getString(2); // name of book
         books[i][2] = rs.getString(3); // isbn
         if (rs.getString(4) == null)
