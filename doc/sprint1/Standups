@@ -50,7 +50,7 @@ o	Optimize database queries for faster retrieval of inventory data.
 o	Develop sorting and filtering options for the librarian interface (e.g., filter by status or due dates).
 
 When do you think you'll be done?
-o	The interface with basic inventory tracking functionality should be completed within 3 days.
+o	The interface with basic inventory tracking functionality should be completed within the weeks.
 
 Do you have any blockers?
 o	Struggling with remote database. Currently it is a local database on local machine.
