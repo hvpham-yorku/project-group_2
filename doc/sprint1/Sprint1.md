@@ -23,14 +23,14 @@ o	Next time user will login the credentials set up at the time of registration.
 2.	User Story 2: Search a book
 Tasks:
 o	Develop search functionality: When you search name of a book, It shows the no. of results and then the names from the database. 
-3.	User Story 10: Checking inventory- Librarian POV: Here librarians can see all the books owned by the library and check all the list of books along with their quantity and the status of books -whether they are in stock or already rented, who has the book, when is it due and other info.  
+3.	User Story 3: Checking inventory- Librarian POV: Here librarians can see all the books owned by the library and check all the list of books along with their quantity and the status of books -whether they are in stock or already rented, who has the book, when is it due and other info.  
 Tasks:
-o	Accessing all the books in the database
-o	Checking the status of the books: In stock or already on rent
+  o	Accessing all the books in the database
+  o	Checking the status of the books: In stock or already on rent
 Task Breakdown
 1.	Task 1: User Authentication
-o	Description: Implement secure login functionality and set up a database to store eligible user credentials.
-o	Assigned To: Kanwarjot
+  o	Description: Implement secure login functionality and set up a database to store eligible user credentials.
+  o	Assigned To: Kanwarjot
 2.	Task 2: Book Search Functionality
 o	Description: Create a search interface to allow users to search for a book, with results fetched from the database.
 o	Assigned To: Noah
