@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.security.Key;
 
 public class LoginView extends JFrame{
     public JPanel panelMain;
@@ -14,6 +17,9 @@ public class LoginView extends JFrame{
     private JButton registerClick;
     private JButton loginClick;
     private DatabaseManager databaseManager;
+    private KeyListener kl;
+    //private
+
 
     private static LoginController loginController;
     private UserService userService;
@@ -30,7 +36,6 @@ public class LoginView extends JFrame{
         loginClick = new JButton("Login");
         registerClick = new JButton("Register");
 
-        //panelMain.setPreferredSize(new Dimension(4, 4));
         loginClick.setPreferredSize(new Dimension(100, 30));
         registerClick.setPreferredSize(new Dimension(100, 30));
 
@@ -43,26 +48,44 @@ public class LoginView extends JFrame{
         panelMain.add(loginClick);
         panelMain.add(registerClick);
 
+        kl = new KeyListener() {
+            public void keyTyped(KeyEvent e) {
 
+            }
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    boolean success = loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
 
+                    if (success){
+                        dispose();
+                        Application homeView = new Application();
+                        //homeView.start();
+                    }
+                }
+
+            }
+            public void keyReleased(KeyEvent e) {
+
+            }
+        };
+        username.addKeyListener(kl);
+        password.addKeyListener(kl);
 
         databaseManager = new DatabaseManager();
 
         loginClick.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-               boolean success = loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
+                boolean success = loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
 
                 if (success){
                     dispose();
                     Application homeView = new Application();
                     //homeView.start();
                 }
-                else{
 
-                }
             }
+
         });
 
         registerClick.addActionListener(new ActionListener() {
@@ -78,6 +101,7 @@ public class LoginView extends JFrame{
         //panelMain.setPreferredSize(new Dimension(300, 222));
 
     }
+
 
 
 }
