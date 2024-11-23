@@ -64,7 +64,8 @@ public class RegisterView extends JFrame{
         this.setContentPane(panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Register");
-        this.setSize(400, 300); // Set the window size
+        this.setSize(300, 300); // Set the window size
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
         databaseManager = new DatabaseManager();
