@@ -1,6 +1,8 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Main {
     //change this depending on your own system settings TODO make this into automated settings for sprint2
@@ -18,8 +20,10 @@ public class Main {
         h.start();
 
         h.setContentPane(h.panelMain);
-        h.setTitle("BABOYEE");
+        h.setTitle("Login");
         h.setSize(250,250);
+        h.setLocationRelativeTo(null); //centre
+
         h.setVisible(true);
         h.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

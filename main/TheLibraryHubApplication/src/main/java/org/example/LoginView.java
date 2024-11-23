@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.security.Key;
 
 public class LoginView extends JFrame{
     public JPanel panelMain;
@@ -14,6 +17,9 @@ public class LoginView extends JFrame{
     private JButton registerClick;
     private JButton loginClick;
     private DatabaseManager databaseManager;
+    private KeyListener kl;
+    //private
+
 
     private static LoginController loginController;
     private UserService userService;
@@ -42,27 +48,44 @@ public class LoginView extends JFrame{
         panelMain.add(loginClick);
         panelMain.add(registerClick);
 
+        kl = new KeyListener() {
+            public void keyTyped(KeyEvent e) {
 
+            }
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    boolean success = loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
 
+                    if (success){
+                        dispose();
+                        Application homeView = new Application();
+                        //homeView.start();
+                    }
+                }
 
+            }
+            public void keyReleased(KeyEvent e) {
+
+            }
+        };
+        username.addKeyListener(kl);
+        password.addKeyListener(kl);
 
         databaseManager = new DatabaseManager();
 
         loginClick.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-               boolean success = loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
+                boolean success = loginController.onLoginButtonClick(username.getText(), String.valueOf(password.getPassword()));
 
                 if (success){
                     dispose();
                     Application homeView = new Application();
                     //homeView.start();
                 }
-                else{
 
-                }
             }
+
         });
 
         registerClick.addActionListener(new ActionListener() {

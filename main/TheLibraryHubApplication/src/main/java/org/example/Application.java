@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 /*
@@ -28,6 +30,7 @@ public class Application
     private DatabaseManager databaseManager;
     private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
+    private KeyListener kl;
 
     Application()
     {
@@ -42,41 +45,33 @@ public class Application
         frame.add(textArea);
         frame.add(showDbButton);
         frame.add(searchButton);
-        frame.setSize(500,500);
+        frame.setSize(350,250);
+        frame.setLocationRelativeTo(null);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        kl = new KeyListener() {
+            public void keyTyped(KeyEvent e) {
+
+            }
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    search();
+                }
+
+            }
+            public void keyReleased(KeyEvent e) {
+
+            }
+        };
+        textArea.addKeyListener(kl);
+        //password.addKeyListener(kl);
 
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"");
-                ResultSet rs = databaseManager.getBooks();
-                //JFrame frame = new JFrame(); //will see what to do with this.
-
-                //String booksFound[][] = new String[25][7];
-
-                try{
-                    int i =0;
-                    int numBooksFound = 0;
-
-                    while (rs.next()){
-                        // for debugging JOptionPane.showMessageDialog(searchButton, "this is what rs.getString(2) returns :" + rs.getString(2));
-
-                        if (rs.getString(2).equals(textArea.getText())){
-                            booksParser(rs, booksFound, i);
-                            numBooksFound++;
-                            i++;
-                        }
-
-                    }
-                    JOptionPane.showMessageDialog(searchButton, "Number of Books Found: " + numBooksFound);
-
-                }catch (SQLException f){
-                    throw new RuntimeException(f);
-                }
-                //display jTable
-                displayJTable(booksFound);
-
+                search();
             }
         });
         showDbButton.addActionListener(new ActionListener() {
@@ -119,7 +114,8 @@ public class Application
         f.setTitle("All Books");
         //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.add(sp);
-        f.setSize(500, 500);
+        f.setSize(800, 400);
+        f.setLocationRelativeTo(null); //centre ur ass
         f.setVisible(true);
 
     }
@@ -151,4 +147,30 @@ public class Application
 //        Application app = new Application();
 //        //displayJTable();
 //    }
+    private void search() {
+        JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"");
+        ResultSet rs = databaseManager.getBooks();
+
+        try{
+            int i =0;
+            int numBooksFound = 0;
+
+            while (rs.next()){
+                // for debugging JOptionPane.showMessageDialog(searchButton, "this is what rs.getString(2) returns :" + rs.getString(2));
+
+                if (rs.getString(2).equals(textArea.getText())){
+                    booksParser(rs, booksFound, i);
+                    numBooksFound++;
+                    i++;
+                }
+
+            }
+            JOptionPane.showMessageDialog(searchButton, "Number of Books Found: " + numBooksFound);
+
+        }catch (SQLException f){
+            throw new RuntimeException(f);
+        }
+        //display jTable
+        displayJTable(booksFound);
+    }
 }
