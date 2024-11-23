@@ -25,8 +25,9 @@ public class Application
     private JFrame frame;
     private JLabel nameLabel;
     private JButton showDbButton;
-    private JButton searchButton;
+    private JButton searchButton, addToCartButton, checkoutButton;
     private JTextField textArea;
+    private JTextArea addToCartTextField;
     private DatabaseManager databaseManager;
     private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
@@ -36,16 +37,23 @@ public class Application
     {
         databaseManager = new DatabaseManager();
         frame = new JFrame();
-        nameLabel = new JLabel("Enter Name:");
+        nameLabel = new JLabel("Enter Name of Book:");
         showDbButton = new JButton("Show Inventory");
         searchButton = new JButton("Search");
-        textArea = new JTextField();
-        frame.setLayout(new GridLayout(2, 2));
+        addToCartButton = new JButton("Add To Cart");
+        checkoutButton = new JButton("Checkout");
+        addToCartTextField = new JTextArea(30,30);
+        textArea = new JTextField(20);
+        frame.setLayout(new FlowLayout());
         frame.add(nameLabel);
         frame.add(textArea);
         frame.add(showDbButton);
         frame.add(searchButton);
-        frame.setSize(350,250);
+        frame.add(addToCartButton);
+        frame.add(addToCartTextField);
+        frame.add(checkoutButton);
+        frame.setTitle("Welcome"); //TODO need to add logged in username
+        frame.setSize(350,650);
         frame.setLocationRelativeTo(null);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
