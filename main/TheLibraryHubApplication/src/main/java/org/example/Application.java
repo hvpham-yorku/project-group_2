@@ -59,6 +59,9 @@ public class Application
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     search();
                 }
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    frame.setVisible(false);
+                }
 
             }
             public void keyReleased(KeyEvent e) {
@@ -116,6 +119,25 @@ public class Application
         f.add(sp);
         f.setSize(800, 400);
         f.setLocationRelativeTo(null); //centre ur ass
+        j.addKeyListener(new KeyListener() { // TODO try to use Keylistener kl above so less duplicate code, didnt work first time.
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    f.setVisible(false);
+                    //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        }); //TODO not working for jTable at the end
         f.setVisible(true);
 
     }
