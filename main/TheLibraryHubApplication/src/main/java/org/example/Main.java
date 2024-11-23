@@ -18,7 +18,7 @@ public class Main {
 
         h.setContentPane(h.panelMain);
         h.setTitle("BABOYEE");
-        h.setSize(500,500);
+        h.setSize(250,250);
         h.setVisible(true);
         h.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
