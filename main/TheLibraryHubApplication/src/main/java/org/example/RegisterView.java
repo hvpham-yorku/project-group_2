@@ -80,9 +80,7 @@ public class RegisterView extends JFrame{
                 if (success){
                     dispose();
                 }
-                else{
 
-                }
             }
         });
 
