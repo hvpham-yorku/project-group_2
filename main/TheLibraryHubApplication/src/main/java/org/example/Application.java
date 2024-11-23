@@ -60,7 +60,7 @@ public class Application
                     search();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    frame.setVisible(false);
+                    System.exit(0); // closes application
                 }
 
             }
@@ -108,7 +108,7 @@ public class Application
             }
         });
     }
-    public static void displayJTable(String books[][]){
+    public void displayJTable(String books[][]){
         String[] columnNames = {"id", "book name", "isbnNumber", "checked_out", "due_date", "checked_out_date", "current_book_user"};
 
         JFrame f = new JFrame();
@@ -128,8 +128,7 @@ public class Application
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    f.setVisible(false);
-                    //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    f.dispose(); // hides the frame so i can search again
                 }
             }
 
