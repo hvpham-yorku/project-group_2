@@ -1,0 +1,56 @@
+[15 November 2024] - Sprint 1 Standup 1
+
+What did you work on since the last standup? 
+o	Designed the database schema to store usernames and passwords.
+o	Researched best practices for secure authentication.
+o	Created a basic registration form interface for the app.
+
+What do you commit to next?
+o	Set up Hashed Passwords for security. 
+o	Begin developing the login functionality to authenticate users against stored credentials.
+o	Implement the backend functionality for registering a new user.
+
+When do you think you'll be done?
+o	Registration and secure credential storage implementation should be completed within the next 2-3 days.
+
+Do you have any blockers?
+o	Finalizing the choice of encryption library for password hashing.
+
+
+
+[18 November 2024] - Sprint 1 Standup 2
+
+What did you work on since the last standup? 
+o	Designed the basic structure for the search interface.
+o	Connected the interface to the database to enable data retrieval.
+o	Tested initial queries to fetch book names and the number of results from the database.
+
+What do you commit to next?
+o	Refine the search functionality to handle partial matches and case-insensitive queries.
+o	Optimize database queries for faster search results.
+o	Add error handling for edge cases, such as no results found.
+
+When do you think you'll be done?
+o	The search interface with basic functionality should be completed within the next 2 days.
+
+Do you have any blockers?
+o	Need to finalize the database indexing strategy to optimize search performance.
+
+
+
+[21 November 2024] - Sprint 1 Standup 3
+
+What did you work on since the last standup? 
+o	Connected the librarian interface to the database to fetch book inventory data.
+o	Implemented initial queries to retrieve book quantities and statuses (in stock or rented).
+o	Added functionality to display who currently has rented books and their due dates.
+
+What do you commit to next?
+o	Optimize database queries for faster retrieval of inventory data.
+o	Develop sorting and filtering options for the librarian interface (e.g., filter by status or due dates).
+
+When do you think you'll be done?
+o	The interface with basic inventory tracking functionality should be completed within the weeks.
+
+Do you have any blockers?
+o	Struggling with remote database. Currently it is a local database on local machine.

@@ -3,10 +3,11 @@ package org.example;
 import javax.swing.*;
 
 public class Main {
-    //change this depending on your own system settings
+    //change this depending on your own system settings TODO make this into automated settings for sprint2
     static LoginController loginController = LoginController.getInstance();
-    static String urlDatabase = "jdbc:postgresql://127.0.0.1:5432/libraryTest";
 
+    //TODO for the TA! :change to your local settings
+    static String urlDatabase = "jdbc:postgresql://127.0.0.1:5432/libraryTest";
     static String usernameDatabase = "postgres";
     static String passwordDatabase = "Kanwarjot@123";
 // test
