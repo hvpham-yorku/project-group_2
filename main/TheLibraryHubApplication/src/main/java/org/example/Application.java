@@ -23,7 +23,7 @@ change this to mainUI.java
 public class Application
 {
     private JFrame frame;
-    private JLabel nameLabel;
+    private JLabel nameLabel, cartLabel;
     private JButton showDbButton;
     private JButton searchButton, addToCartButton, checkoutButton;
     private JTextField textArea;
@@ -32,12 +32,14 @@ public class Application
     private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
     private KeyListener kl;
+    private String booksToAdd = "", cartItems = "";
 
     Application()
     {
         databaseManager = new DatabaseManager();
         frame = new JFrame();
         nameLabel = new JLabel("Enter Name of Book:");
+        cartLabel = new JLabel("Cart Items:");
         showDbButton = new JButton("Show Inventory");
         searchButton = new JButton("Search");
         addToCartButton = new JButton("Add To Cart");
@@ -50,6 +52,7 @@ public class Application
         frame.add(showDbButton);
         frame.add(searchButton);
         frame.add(addToCartButton);
+        frame.add(cartLabel);
         frame.add(addToCartTextField);
         frame.add(checkoutButton);
         frame.setTitle("Welcome"); //TODO need to add logged in username
@@ -58,6 +61,7 @@ public class Application
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
 
         kl = new KeyListener() {
             public void keyTyped(KeyEvent e) {
@@ -89,34 +93,37 @@ public class Application
             @Override
             public void actionPerformed(ActionEvent e) {
                 ResultSet rs = databaseManager.getBooks();
-                //JFrame f = new JFrame();
-
-
-
                 try  {
-                    //rs.afterLast();
-
-                    //rs = databaseManager.getRs(); // moves cursor to front of the result set object - read api
                     int i = 0;
-                    while (rs.next()) { //TODO change this into static method
-
+                    while (rs.next()) {
                         booksParser(rs, books, i);
                         i++;
-
-                        //System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
                     }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                //display here
                 displayJTable(books);
-
-
-
             }
         });
+        addToCartButton.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               if ((textArea.getText().isEmpty()) || (!search(textArea.getText()))) { // empty or not valid name
+                   JOptionPane.showMessageDialog(frame, "Please enter a valid book name.");
+               }
+               else
+               {
+                   cartItems =  textArea.getText(); // TODO check with database if checked_out is false
+                   booksToAdd = booksToAdd + cartItems + "\n" ;
+                   //System.out.println(cartItems);
+                   addToCartTextField.setText(booksToAdd);
+                   textArea.setText("");
+               }
+
+           }
+        });
     }
-    public void displayJTable(String books[][]){
+    private void displayJTable(String books[][]){
         String[] columnNames = {"id", "book name", "isbnNumber", "checked_out", "due_date", "checked_out_date", "current_book_user"};
 
         JFrame f = new JFrame();
@@ -127,7 +134,7 @@ public class Application
         f.add(sp);
         f.setSize(800, 400);
         f.setLocationRelativeTo(null); //centre ur ass
-        j.addKeyListener(new KeyListener() { // TODO try to use Keylistener kl above so less duplicate code, didnt work first time.
+        j.addKeyListener(new KeyListener() { //
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -144,13 +151,14 @@ public class Application
             public void keyReleased(KeyEvent e) {
 
             }
-        }); //TODO not working for jTable at the end
+        });
         f.setVisible(true);
 
     }
     // it will parse the books Table, use this to make changes so call this method only once a
-    // and everything is updated TODO TELL NOAH @#@#@#@#@!@!@
-    public static void booksParser(ResultSet rs, String books[][], int i) throws SQLException{
+    // and everything is updated
+
+    private static void booksParser(ResultSet rs, String books[][], int i) throws SQLException{
 
         books[i][0] = rs.getString(1); // id
         books[i][1] = rs.getString(2); // name of book
@@ -171,11 +179,17 @@ public class Application
 
 
     }
+
+    private boolean addToCart(String books[][]){
+
+        return false;
+    }
     //using for test
 //    public static void main(String[] args) {
 //        Application app = new Application();
 //        //displayJTable();
 //    }
+    //TODO change search() so there is less duplicate code
     private void search() {
         JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"");
         ResultSet rs = databaseManager.getBooks();
@@ -202,4 +216,40 @@ public class Application
         //display jTable
         displayJTable(booksFound);
     }
+    private boolean search(String bookToSearch){
+        boolean found = false;
+        ResultSet rs = databaseManager.getBooks();
+        try{
+            while(rs.next()){
+                if (rs.getString(2).equals(bookToSearch)){
+                    found = true;
+                }
+            }
+        }catch (SQLException f){
+            throw new RuntimeException(f);
+        }
+        return found;
+    }
+
+    // this function checks whether the book is in library or is already checked out.
+    private boolean checkedOut(String bookToSearch){
+        boolean checkedOut = true;
+        ResultSet rs = databaseManager.getBooks();
+        try{
+            int i =0;
+            while (rs.next()){
+                if (rs.getString(2).equals(bookToSearch)){ // if book found
+                    if (rs.getString(4).equals(false)){
+                        System.out.println(rs.getString(4) + " : value of checkedOut");
+                        checkedOut = false;
+                    }
+
+                }
+            }
+        }catch (SQLException g){
+            throw new RuntimeException(g);
+        }
+        return checkedOut;
+    }
+
 }
