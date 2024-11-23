@@ -20,7 +20,7 @@ public class Main {
         h.start();
 
         h.setContentPane(h.panelMain);
-        h.setTitle("Login");
+        h.setTitle("Login Info");
         h.setSize(250,250);
         h.setLocationRelativeTo(null); //centre
 
