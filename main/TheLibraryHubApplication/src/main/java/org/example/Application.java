@@ -229,7 +229,7 @@ public class Application
 
     // this function checks whether the book is in library or is already checked out.
     private boolean checkedOut(String bookToSearch){
-        boolean checkedOut = true;
+        boolean checkedOutState = true;
         ResultSet rs = databaseManager.getBooks();
         try{
             int i =0;
@@ -237,7 +237,7 @@ public class Application
                 if (rs.getString(2).equals(bookToSearch)){ // if book found
                     if (rs.getString(4).equals(false)){
                         System.out.println(rs.getString(4) + " : value of checkedOut");
-                        checkedOut = false;
+                        checkedOutState = false;
                     }
 
                 }
@@ -245,7 +245,7 @@ public class Application
         }catch (SQLException g){
             throw new RuntimeException(g);
         }
-        return checkedOut;
+        return checkedOutState;
     }
 
 }
