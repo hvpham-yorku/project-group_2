@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
+
 /*
 authenticationUI.java
 joptionpane window which take username password and checks with Table "loginInformation" on postgres
@@ -114,10 +116,16 @@ public class Application
                else
                {
                    cartItems =  textArea.getText(); // TODO check with database if checked_out is false
-                   booksToAdd = booksToAdd + cartItems + "\n" ;
-                   //System.out.println(cartItems);
-                   addToCartTextField.setText(booksToAdd);
-                   textArea.setText("");
+                   if (checkedOut(textArea.getText())){ //checks if true
+                       JOptionPane.showMessageDialog(frame, textArea.getText() + " is already checked out.\n Please select a valid book.");
+                   }
+                   else{
+                       booksToAdd = booksToAdd + cartItems + "\n" ;
+                       //System.out.println(cartItems);
+                       addToCartTextField.setText(booksToAdd);
+                       textArea.setText("");
+                   }
+
                }
 
            }
@@ -179,7 +187,7 @@ public class Application
 
 
     }
-    
+
     //using for test
 //    public static void main(String[] args) {
 //        Application app = new Application();
@@ -229,15 +237,16 @@ public class Application
 
     // this function checks whether the book is in library or is already checked out.
     private boolean checkedOut(String bookToSearch){
-        boolean checkedOut = true;
+        boolean checkedOutState = true;
         ResultSet rs = databaseManager.getBooks();
         try{
             int i =0;
             while (rs.next()){
                 if (rs.getString(2).equals(bookToSearch)){ // if book found
-                    if (rs.getString(4).equals(false)){
-                        System.out.println(rs.getString(4) + " : value of checkedOut");
-                        checkedOut = false;
+                    //JOptionPane.showMessageDialog(frame,rs.getString(4) + " : value of checkedOut");
+
+                    if (rs.getString(4).equals("f")){
+                        checkedOutState = false;
                     }
 
                 }
@@ -245,7 +254,7 @@ public class Application
         }catch (SQLException g){
             throw new RuntimeException(g);
         }
-        return checkedOut;
+        return checkedOutState;
     }
 
 }
