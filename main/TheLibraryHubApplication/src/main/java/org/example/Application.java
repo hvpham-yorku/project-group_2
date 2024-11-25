@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 
 /*
 authenticationUI.java
@@ -115,7 +114,7 @@ public class Application
                }
                else
                {
-                   cartItems =  textArea.getText(); // TODO check with database if checked_out is false
+                   cartItems =  textArea.getText(); //  check with database if checked_out is false
                    if (checkedOut(textArea.getText())){ //checks if true
                        JOptionPane.showMessageDialog(frame, textArea.getText() + " is already checked out.\n Please select a valid book.");
                    }
