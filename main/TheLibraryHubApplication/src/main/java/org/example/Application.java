@@ -195,12 +195,13 @@ public class Application
 //    }
     //TODO change search() so there is less duplicate code
     private void search() {
+        int i =0;
+        int numBooksFound = 0;
         JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"");
         ResultSet rs = databaseManager.getBooks();
 
         try{
-            int i =0;
-            int numBooksFound = 0;
+
 
             while (rs.next()){
                 // for debugging JOptionPane.showMessageDialog(searchButton, "this is what rs.getString(2) returns :" + rs.getString(2));
@@ -210,6 +211,9 @@ public class Application
                     numBooksFound++;
                     i++;
                 }
+                else{
+
+                }
 
             }
             JOptionPane.showMessageDialog(searchButton, "Number of Books Found: " + numBooksFound);
@@ -218,7 +222,8 @@ public class Application
             throw new RuntimeException(f);
         }
         //display jTable
-        displayJTable(booksFound);
+        if (numBooksFound != 0)
+            displayJTable(booksFound);
     }
     private boolean search(String bookToSearch){
         boolean found = false;
