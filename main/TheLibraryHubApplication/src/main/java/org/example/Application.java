@@ -143,13 +143,14 @@ public class Application
         });
         /* here we need to change books_inventory: - the inventory
         * change books table : check which user is checking out book
-        * change date checked out, change
+        * change bool checked out , timestamp due date, timestamp checkedout date, text user that checked out
         *
          */
         checkoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                //TODO get user logged in
+                
                 //all checks are performed in addtocart button, so i can just implement checkout
 
             }
