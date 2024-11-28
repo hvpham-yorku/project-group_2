@@ -150,7 +150,7 @@ public class Application
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO get user logged in
-                
+
                 //all checks are performed in addtocart button, so i can just implement checkout
 
             }
