@@ -2,7 +2,7 @@ package org.example;
 
 
 public class UserService {
-
+    private static final String masterPassword = "master"; // use this password to verify a librarian class of user.
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {

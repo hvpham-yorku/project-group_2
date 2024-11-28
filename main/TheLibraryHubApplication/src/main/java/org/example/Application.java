@@ -9,6 +9,10 @@ import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
+
 /*
 authenticationUI.java
 joptionpane window which take username password and checks with Table "loginInformation" on postgres
@@ -33,7 +37,8 @@ public class Application
     private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
     private KeyListener kl;
-    private String booksToAdd = "", cartItems = "";
+    private String  cartItems = "";
+    private ArrayList<String> booksAdded = new ArrayList<String>();
 
     Application()
     {
@@ -114,20 +119,40 @@ public class Application
                }
                else
                {
-                   cartItems =  textArea.getText(); //  check with database if checked_out is false
+
+                   cartItems =  textArea.getText(); // check with database if checked_out is false - 2 lines down
+
                    if (checkedOut(textArea.getText())){ //checks if true
                        JOptionPane.showMessageDialog(frame, textArea.getText() + " is already checked out.\n Please select a valid book.");
                    }
+                   else if (booksAdded.contains(textArea.getText())) { // check if already added to cart
+                       JOptionPane.showMessageDialog(frame, textArea.getText() + " is already in the cart.");
+                   }
                    else{
-                       booksToAdd = booksToAdd + cartItems + "\n" ;
+                       booksAdded.add(cartItems); // has an arraylist of all the books added to cart
+
+                       //booksToAdd = booksToAdd + cartItems + "\n" ; // adds to cart LLL:::: not needed anymore , converted to arraylist
                        //System.out.println(cartItems);
-                       addToCartTextField.setText(booksToAdd);
+                       addToCartTextField.setText(booksAdded.toString());
                        textArea.setText("");
                    }
 
                }
 
            }
+        });
+        /* here we need to change books_inventory: - the inventory
+        * change books table : check which user is checking out book
+        * change date checked out, change
+        *
+         */
+        checkoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO
+                //all checks are performed in addtocart button, so i can just implement checkout
+
+            }
         });
     }
     private void displayJTable(String books[][]){
@@ -192,14 +217,13 @@ public class Application
 //        Application app = new Application();
 //        //displayJTable();
 //    }
-    //TODO change search() so there is less duplicate code
     private void search() {
-        JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"");
+        int i =0;
+        int numBooksFound = 0;
         ResultSet rs = databaseManager.getBooks();
 
         try{
-            int i =0;
-            int numBooksFound = 0;
+
 
             while (rs.next()){
                 // for debugging JOptionPane.showMessageDialog(searchButton, "this is what rs.getString(2) returns :" + rs.getString(2));
@@ -211,13 +235,16 @@ public class Application
                 }
 
             }
-            JOptionPane.showMessageDialog(searchButton, "Number of Books Found: " + numBooksFound);
+            JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"\n" +
+                    "Number of Books found: " + numBooksFound);
+
 
         }catch (SQLException f){
             throw new RuntimeException(f);
         }
         //display jTable
-        displayJTable(booksFound);
+        if (numBooksFound != 0)
+            displayJTable(booksFound);
     }
     private boolean search(String bookToSearch){
         boolean found = false;
@@ -254,6 +281,11 @@ public class Application
             throw new RuntimeException(g);
         }
         return checkedOutState;
+    }
+
+    private boolean checkListAddedToCart(ArrayList<String> list){
+        //TODO check if books.added already has the value of textArea.getText()
+        return false;
     }
 
 }
