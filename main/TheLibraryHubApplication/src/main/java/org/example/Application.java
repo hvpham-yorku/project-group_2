@@ -197,7 +197,6 @@ public class Application
     private void search() {
         int i =0;
         int numBooksFound = 0;
-        JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"");
         ResultSet rs = databaseManager.getBooks();
 
         try{
@@ -216,7 +215,9 @@ public class Application
                 }
 
             }
-            JOptionPane.showMessageDialog(searchButton, "Number of Books Found: " + numBooksFound);
+            JOptionPane.showMessageDialog(searchButton, "You searched for : " + textArea.getText()+"\n" +
+                    "Number of Books found: " + numBooksFound);
+
 
         }catch (SQLException f){
             throw new RuntimeException(f);
