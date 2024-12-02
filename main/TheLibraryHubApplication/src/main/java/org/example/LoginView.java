@@ -58,7 +58,7 @@ public class LoginView extends JFrame{
 
                     if (success){
                         dispose();
-                        Application homeView = new Application();
+                        Application homeView = new Application(username.getText());
                         //homeView.start();
                     }
                 }
@@ -80,7 +80,7 @@ public class LoginView extends JFrame{
 
                 if (success){
                     dispose();
-                    Application homeView = new Application();
+                    Application homeView = new Application(username.getText());
                     //homeView.start();
                 }
 

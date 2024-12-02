@@ -45,7 +45,6 @@ public class BookRepository {
 
                 pstmt.setString(1, user.getUsername());
                 pstmt.setInt(2, id);
-
                 pstmt.executeUpdate();
 
                 PreparedStatement pstmt_2 = conn.prepareStatement(sql_2);
