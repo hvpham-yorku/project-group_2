@@ -151,15 +151,22 @@ public class Application
         *
          */
         checkoutButton.addActionListener(new ActionListener() {
+            //private String username = this.username;
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO get user logged in
-                //BookRepository.checkOut(booksAdded);
+                databaseManager.checkOut(booksAdded, getUsername());
                 //all checks are performed in addtocart button, so i can just implement checkout
 
             }
         });
     }
+    public String getUsername() {
+        return this.username;
+    }
+
+
     private void displayJTable(String books[][]){
         String[] columnNames = {"id", "book name", "isbnNumber", "checked_out", "due_date", "checked_out_date", "current_book_user"};
 
@@ -288,4 +295,12 @@ public class Application
         return checkedOutState;
     }
 
+    // this method replaces checkedOutState
+    // return the amount of inventory of the book searched
+    private int inventoryState(String bookToSearch){
+        int inventoryState = 0;
+        ResultSet rs = databaseManager.getBooksInventory();
+
+        return inventoryState;
+    }
 }
