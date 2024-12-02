@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.print.Book;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -34,13 +35,15 @@ public class Application
     private JTextField textArea;
     private JTextArea addToCartTextField;
     private DatabaseManager databaseManager;
+    private BookRepository bookRepository;
     private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
     private KeyListener kl;
     private String  cartItems = "";
     private ArrayList<String> booksAdded = new ArrayList<String>();
+    private String username;
 
-    Application()
+    Application(String username)
     {
         databaseManager = new DatabaseManager();
         frame = new JFrame();
@@ -52,6 +55,7 @@ public class Application
         checkoutButton = new JButton("Checkout");
         addToCartTextField = new JTextArea(30,30);
         textArea = new JTextField(20);
+        this.username = username;
         frame.setLayout(new FlowLayout());
         frame.add(nameLabel);
         frame.add(textArea);
@@ -61,7 +65,7 @@ public class Application
         frame.add(cartLabel);
         frame.add(addToCartTextField);
         frame.add(checkoutButton);
-        frame.setTitle("Welcome"); //TODO need to add logged in username
+        frame.setTitle("Welcome " + this.username); //TODO need to add logged in username
         frame.setSize(350,650);
         frame.setLocationRelativeTo(null);
 
@@ -122,7 +126,7 @@ public class Application
 
                    cartItems =  textArea.getText(); // check with database if checked_out is false - 2 lines down
 
-                   if (checkedOut(textArea.getText())){ //checks if true
+                   if (checkedOutState(textArea.getText())){ //checks if true
                        JOptionPane.showMessageDialog(frame, textArea.getText() + " is already checked out.\n Please select a valid book.");
                    }
                    else if (booksAdded.contains(textArea.getText())) { // check if already added to cart
@@ -150,7 +154,7 @@ public class Application
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO get user logged in
-
+                //BookRepository.checkOut(booksAdded);
                 //all checks are performed in addtocart button, so i can just implement checkout
 
             }
@@ -263,7 +267,7 @@ public class Application
     }
 
     // this function checks whether the book is in library or is already checked out.
-    private boolean checkedOut(String bookToSearch){
+    private boolean checkedOutState(String bookToSearch){
         boolean checkedOutState = true;
         ResultSet rs = databaseManager.getBooks();
         try{
@@ -282,11 +286,6 @@ public class Application
             throw new RuntimeException(g);
         }
         return checkedOutState;
-    }
-
-    private boolean checkListAddedToCart(ArrayList<String> list){
-        //TODO check if books.added already has the value of textArea.getText()
-        return false;
     }
 
 }
