@@ -53,7 +53,6 @@ create different function for each table
         System.out.println(username);
         //boolean checkOut = true;
 
-        //TODO uncomment when username shows up
         for (int i = 0; i < listOfAddedBooks.size(); i++)
         {
             String sql = "UPDATE books SET checked_out = true, current_book_user = ?, checked_out_date = CURRENT_TIMESTAMP, due_date = CURRENT_TIMESTAMP + INTERVAL '2 weeks' WHERE name = ?";
