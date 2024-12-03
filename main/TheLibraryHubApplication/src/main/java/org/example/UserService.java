@@ -13,7 +13,7 @@ public class UserService {
 
     public boolean handleRegisterUser(String firstName, String lastName, String userName, String password, String adminpassword) {
 
-        String validationMessage = validateUserRegistration(firstName, lastName, userName, password, adminpassword);
+        String validationMessage = validateUserRegistration(firstName, lastName, userName, password, adminpassword); //TODO check this method if it needs anything as well
 
         if (!validationMessage.isEmpty()) {
             return false; 
@@ -51,7 +51,7 @@ public class UserService {
 
         if (password == null || password.trim().isEmpty()) missingFields.append("\nPassword, ");
 
-        if (adminpassword == null || adminpassword.trim().isEmpty()) missingFields.append("\nPassword, ");
+        if (adminpassword == null || adminpassword.trim().isEmpty()) missingFields.append("\nPassword, "); //TODO no idea what this does... check 
 
 
 
