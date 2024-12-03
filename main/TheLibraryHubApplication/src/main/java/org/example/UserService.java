@@ -10,11 +10,9 @@ public class UserService {
         
     }
 
-    public User handleGetUserById(int id) {
-        return userRepository.getUserById(id);
-    }
 
     public boolean handleRegisterUser(String firstName, String lastName, String userName, String password) {
+
         String validationMessage = validateUserRegistration(firstName, lastName, userName, password);
 
         if (!validationMessage.isEmpty()) {
@@ -34,24 +32,6 @@ public class UserService {
         newUser = new User(firstName, lastName, userName, password);
 
         userRepository.createUser(newUser);
-        
-        return true;
-    }
-    // Method for updating user profile (changing password only)
-    public boolean handleUpdateUser(String oldUserName, String oldPassword, String newPassword) {
-    	User user = userRepository.validateUser(oldUserName, oldPassword);
-    	
-    	if (user == null) {
-    		// Old username or password is invalid
-    		return false;
-    	}
-    	
-    	// Update password with new values
-  
-        user.setPassword(newPassword);
-        
-        userRepository.updateUserProfile(user);
-        
         
         return true;
     }
