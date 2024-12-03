@@ -24,15 +24,15 @@ and create and show the authenticator UI, once user is authenticated (from authe
 change this to mainUI.java
 
  */
-public class ApplicationUser
+public class Application
 {
-    private JFrame frame;
+    protected JFrame frame;
     private JLabel nameLabel, cartLabel;
     private JButton showDbButton;
     private JButton searchButton, addToCartButton, checkoutButton;
-    private JTextField textArea;
+    protected JTextField textArea;
     private JTextArea addToCartTextField;
-    private DatabaseManager databaseManager;
+    protected DatabaseManager databaseManager;
     private BookRepository bookRepository;
     private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
@@ -41,7 +41,7 @@ public class ApplicationUser
     private ArrayList<String> booksAdded = new ArrayList<String>();
     private String username;
 
-    ApplicationUser(String username)
+    Application(String username)
     {
         databaseManager = new DatabaseManager();
         frame = new JFrame();
@@ -157,6 +157,7 @@ public class ApplicationUser
             public void actionPerformed(ActionEvent e) {
                 //TODO get user logged in
                 databaseManager.checkOut(booksAdded, getUsername());
+                addToCartTextField.setText("");
                 //all checks are performed in addtocart button, so i can just implement checkout
 
             }

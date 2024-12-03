@@ -6,9 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class LoginView extends JFrame{
     public JPanel panelMain;
@@ -110,7 +108,7 @@ public class LoginView extends JFrame{
         }
         else if (!databaseManager.validateAdmin(username.getText())){
             JOptionPane.showMessageDialog(null, "You are logged in as user");
-            ApplicationUser v = new ApplicationUser(username.getText());
+            Application v = new Application(username.getText());
             //homeView.start();
         }
         else {
