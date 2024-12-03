@@ -52,7 +52,7 @@ create different function for each table
     public void checkOut(ArrayList<String> listOfAddedBooks, String username) {
         //System.out.println(username);
         //boolean checkOut = true;
-        if(listOfAddedBooks.isEmpty()){
+        if(listOfAddedBooks.isEmpty() || username.isEmpty()){
             JOptionPane.showMessageDialog(null, "No books added to the cart. Please add books to cart and try again.");
         }
         else{
@@ -81,14 +81,11 @@ create different function for each table
                 }
             }
         }
-
-
-
     }
 
     public void returnBook(String bookName, String username) {
         //System.out.println("Logged in : "+ username);
-        if(bookName.isEmpty()){
+        if(bookName.isEmpty() || username.isEmpty()){
             JOptionPane.showMessageDialog(null, "No books in the textField. Please type a book to return and try again.");
         }
         else {
@@ -104,9 +101,6 @@ create different function for each table
                 System.out.println(e.getMessage());
             }
         }
-
-
-
     }
 
     public boolean validateAdmin(String username) {
@@ -123,8 +117,6 @@ create different function for each table
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
-//usr, admin, null
-
         return false;
     }
 }
