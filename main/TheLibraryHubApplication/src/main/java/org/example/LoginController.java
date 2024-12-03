@@ -39,46 +39,11 @@ public class LoginController {
                   //try again
                     JOptionPane.showMessageDialog(null, "Invalid Login Input. Try Again", "Invalid", JOptionPane.INFORMATION_MESSAGE);
                   }
-              /*  if (isSuccessfulLogin){
-                    //Got to homepage
 
-                    // Create a new JFrame for the new page (or window)
-                    JFrame newFrame = new JFrame("Homepage");
-
-                    // Set the size and other properties of the new frame
-                    newFrame.setSize(400, 300);
-                    newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-                    // Add a label or other components to the new frame
-                    JLabel newPageLabel = new JLabel("Welcome to the new page!", JLabel.CENTER);
-                    newFrame.add(newPageLabel);
-
-                    // Make the new frame visible
-                    newFrame.setVisible(true);
-
-                    return;
-
-
-                }
-
-               */
                 return isSuccessfulLogin;
             }
 
 
-
-  /*  public ChangeListener<? super String> onUserNameTextChange(Text actionTarget) {
-        return (observable, oldValue, newValue) -> {
-            actionTarget.setText("");
-        };
-    }
-    public ChangeListener<? super String> onPasswordTextChange(Text actionTarget) {
-        return (observable, oldValue, newValue) -> {
-            actionTarget.setText("");
-        };
-    }
-
- */
     // Event Handler for Register Button
     public boolean onRegisterButtonClick(String firstName, String lastName, String username, String password) {
 
@@ -98,11 +63,5 @@ public class LoginController {
     };
 
 
-
-
-
-    public User getUserById(int userId) {
-        return userService.handleGetUserById(userId);
-    }
 
 }
