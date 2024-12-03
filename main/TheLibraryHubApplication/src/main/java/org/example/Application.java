@@ -55,9 +55,9 @@ public class Application
         frame.setLayout(new FlowLayout());
         frame.add(nameLabel);
         frame.add(textArea);
+        frame.add(cartLabel);
         frame.add(searchButton);
         frame.add(addToCartButton);
-        frame.add(cartLabel);
         frame.add(addToCartTextField);
         frame.add(checkoutButton);
         //frame.add(returnButton);
