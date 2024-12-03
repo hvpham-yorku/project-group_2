@@ -6,12 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.print.Book;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 /*
@@ -28,13 +26,13 @@ change this to mainUI.java
  */
 public class Application
 {
-    private JFrame frame;
+    protected JFrame frame;
     private JLabel nameLabel, cartLabel;
     private JButton showDbButton;
-    private JButton searchButton, addToCartButton, checkoutButton, returnButton;
-    private JTextField textArea;
+    private JButton searchButton, addToCartButton, checkoutButton;
+    protected JTextField textArea;
     private JTextArea addToCartTextField;
-    private DatabaseManager databaseManager;
+    protected DatabaseManager databaseManager;
     private BookRepository bookRepository;
     private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
@@ -53,7 +51,7 @@ public class Application
         searchButton = new JButton("Search");
         addToCartButton = new JButton("Add To Cart");
         checkoutButton = new JButton("Checkout");
-        returnButton = new JButton("Return");
+        //returnButton = new JButton("Return");
         addToCartTextField = new JTextArea(30,30);
         textArea = new JTextField(20);
         this.username = username;
@@ -66,7 +64,7 @@ public class Application
         frame.add(cartLabel);
         frame.add(addToCartTextField);
         frame.add(checkoutButton);
-        frame.add(returnButton);
+        //frame.add(returnButton);
         frame.setTitle("Welcome " + this.username); //TODO need to add logged in username
         frame.setSize(350,650);
         frame.setLocationRelativeTo(null);
@@ -118,39 +116,39 @@ public class Application
             }
         });
         addToCartButton.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               if ((textArea.getText().isEmpty()) || (!search(textArea.getText()))) { // empty or not valid name
-                   JOptionPane.showMessageDialog(frame, "Please enter a valid book name.");
-               }
-               else
-               {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ((textArea.getText().isEmpty()) || (!search(textArea.getText()))) { // empty or not valid name
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid book name.");
+                }
+                else
+                {
 
-                   cartItems =  textArea.getText(); // check with database if checked_out is false - 2 lines down
+                    cartItems =  textArea.getText(); // check with database if checked_out is false - 2 lines down
 
-                   if (checkedOutState(textArea.getText())){ //checks if true
-                       JOptionPane.showMessageDialog(frame, textArea.getText() + " is already checked out.\n Please select a valid book.");
-                   }
-                   else if (booksAdded.contains(textArea.getText())) { // check if already added to cart
-                       JOptionPane.showMessageDialog(frame, textArea.getText() + " is already in the cart.");
-                   }
-                   else{
-                       booksAdded.add(cartItems); // has an arraylist of all the books added to cart
+                    if (checkedOutState(textArea.getText())){ //checks if true
+                        JOptionPane.showMessageDialog(frame, textArea.getText() + " is already checked out.\n Please select a valid book.");
+                    }
+                    else if (booksAdded.contains(textArea.getText())) { // check if already added to cart
+                        JOptionPane.showMessageDialog(frame, textArea.getText() + " is already in the cart.");
+                    }
+                    else{
+                        booksAdded.add(cartItems); // has an arraylist of all the books added to cart
 
-                       //booksToAdd = booksToAdd + cartItems + "\n" ; // adds to cart LLL:::: not needed anymore , converted to arraylist
-                       //System.out.println(cartItems);
-                       addToCartTextField.setText(booksAdded.toString());
-                       textArea.setText("");
-                   }
+                        //booksToAdd = booksToAdd + cartItems + "\n" ; // adds to cart LLL:::: not needed anymore , converted to arraylist
+                        //System.out.println(cartItems);
+                        addToCartTextField.setText(booksAdded.toString());
+                        textArea.setText("");
+                    }
 
-               }
+                }
 
-           }
+            }
         });
         /* here we need to change books_inventory: - the inventory
-        * change books table : check which user is checking out book
-        * change bool checked out , timestamp due date, timestamp checkedout date, text user that checked out
-        *
+         * change books table : check which user is checking out book
+         * change bool checked out , timestamp due date, timestamp checkedout date, text user that checked out
+         *
          */
         checkoutButton.addActionListener(new ActionListener() {
             //private String username = this.username;
@@ -159,15 +157,9 @@ public class Application
             public void actionPerformed(ActionEvent e) {
                 //TODO get user logged in
                 databaseManager.checkOut(booksAdded, getUsername());
+                addToCartTextField.setText("");
                 //all checks are performed in addtocart button, so i can just implement checkout
 
-            }
-        });
-        returnButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                databaseManager.returnBook(textArea.getText(), getUsername());
             }
         });
     }
@@ -304,13 +296,4 @@ public class Application
         return checkedOutState;
     }
 
-    // this method replaces checkedOutState
-    // return the amount of inventory of the book searched
-    //TODO remove this method: not doing cuz of time constraints
-    private int inventoryState(String bookToSearch){
-        int inventoryState = 0;
-        ResultSet rs = databaseManager.getBooksInventory();
-
-        return inventoryState;
-    }
 }

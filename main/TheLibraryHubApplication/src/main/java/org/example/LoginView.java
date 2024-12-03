@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
+import java.sql.ResultSet;
 
 public class LoginView extends JFrame{
     public JPanel panelMain;
@@ -58,8 +58,7 @@ public class LoginView extends JFrame{
 
                     if (success){
                         dispose();
-                        Application homeView = new Application(username.getText());
-                        //homeView.start();
+                        handleLogin();
                     }
                 }
 
@@ -80,12 +79,11 @@ public class LoginView extends JFrame{
 
                 if (success){
                     dispose();
-                    Application homeView = new Application(username.getText());
-                    //homeView.start();
+                    //start
+                    ResultSet rs = databaseManager.getUsers();
+                    handleLogin();
                 }
-
             }
-
         });
 
         registerClick.addActionListener(new ActionListener() {
@@ -100,6 +98,22 @@ public class LoginView extends JFrame{
 
         //panelMain.setPreferredSize(new Dimension(300, 222));
 
+    }
+
+    private void handleLogin(){
+        //if admin
+        if (databaseManager.validateAdmin(username.getText())){
+            JOptionPane.showMessageDialog(null, "You have successfully logged in as admin");
+            ApplicationAdmin h = new ApplicationAdmin(username.getText());
+        }
+        else if (!databaseManager.validateAdmin(username.getText())){
+            JOptionPane.showMessageDialog(null, "You are logged in as user");
+            Application v = new Application(username.getText());
+            //homeView.start();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Invalid username or password");
+        }
     }
 
 

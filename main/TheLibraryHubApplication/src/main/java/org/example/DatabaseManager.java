@@ -35,16 +35,16 @@ create different function for each table
             this.rs = this.st.executeQuery("select * from books");
 
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return this.rs;
     }
-//TODO remove method not implementing do to time constraints
-    public ResultSet getBooksInventory(){
-        try {
-            this.rs = this.st.executeQuery("select * from book_inventory");
-        } catch (SQLException e) {
-            System.out.println(e);
+
+    public ResultSet getUsers(){
+        try{
+            this.rs = this.st.executeQuery("select * from users");
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
         }
         return this.rs;
     }
@@ -55,7 +55,7 @@ create different function for each table
 
         for (int i = 0; i < listOfAddedBooks.size(); i++)
         {
-            String sql = "UPDATE books SET checked_out = true, current_book_user = ?, checked_out_date = CURRENT_TIMESTAMP, due_date = CURRENT_TIMESTAMP + INTERVAL '2 weeks' WHERE name = ?";
+            String sql = "UPDATE books SET checked_out = true, current_book_user = ?, checked_out_date = CURRENT_TIMESTAMP(0), due_date = CURRENT_TIMESTAMP(0) + INTERVAL '2 weeks' WHERE name = ?";
             //String sql_2 = "UPDATE book_inventory SET quantity_left = quantity_left - 1 WHERE name = ?";
             //String sql_3 = "UPDATE users SET checked_out_books = array_append(checked_out_books, ?) where username = ?";
 
@@ -99,6 +99,22 @@ create different function for each table
 
     }
 
+    public boolean validateAdmin(String username) {
+        String sql = "SELECT class FROM users WHERE userName = ?";
+        try {
+            PreparedStatement ps = this.con.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
 
+            if (rs.next()) {
+                String test = rs.getString("class");
+                return rs.getString("class").replace("\n", "").equals("admin");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+//usr, admin, null
 
+        return false;
+    }
 }
