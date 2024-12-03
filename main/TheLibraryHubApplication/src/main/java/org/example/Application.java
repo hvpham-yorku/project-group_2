@@ -31,7 +31,7 @@ public class Application
     private JFrame frame;
     private JLabel nameLabel, cartLabel;
     private JButton showDbButton;
-    private JButton searchButton, addToCartButton, checkoutButton;
+    private JButton searchButton, addToCartButton, checkoutButton, returnButton;
     private JTextField textArea;
     private JTextArea addToCartTextField;
     private DatabaseManager databaseManager;
@@ -53,6 +53,7 @@ public class Application
         searchButton = new JButton("Search");
         addToCartButton = new JButton("Add To Cart");
         checkoutButton = new JButton("Checkout");
+        returnButton = new JButton("Return");
         addToCartTextField = new JTextArea(30,30);
         textArea = new JTextField(20);
         this.username = username;
@@ -65,6 +66,7 @@ public class Application
         frame.add(cartLabel);
         frame.add(addToCartTextField);
         frame.add(checkoutButton);
+        frame.add(returnButton);
         frame.setTitle("Welcome " + this.username); //TODO need to add logged in username
         frame.setSize(350,650);
         frame.setLocationRelativeTo(null);
@@ -159,6 +161,13 @@ public class Application
                 databaseManager.checkOut(booksAdded, getUsername());
                 //all checks are performed in addtocart button, so i can just implement checkout
 
+            }
+        });
+        returnButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                databaseManager.returnBook(textArea.getText(), getUsername());
             }
         });
     }
@@ -297,6 +306,7 @@ public class Application
 
     // this method replaces checkedOutState
     // return the amount of inventory of the book searched
+    //TODO remove this method: not doing cuz of time constraints
     private int inventoryState(String bookToSearch){
         int inventoryState = 0;
         ResultSet rs = databaseManager.getBooksInventory();
