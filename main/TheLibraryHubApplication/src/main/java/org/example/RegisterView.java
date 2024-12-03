@@ -21,7 +21,6 @@ public class RegisterView extends JFrame{
     private JTextField username;
     private JButton registerClick;
     private JButton loginClick;
-    private JButton showDatabaseButton;
     private DatabaseManager databaseManager;
 
     private static LoginController loginController;
@@ -43,7 +42,7 @@ public class RegisterView extends JFrame{
         last_name = new JTextField(20);  // 20 columns wide
         loginClick = new JButton("Login");
         registerClick = new JButton("Register");
-        showDatabaseButton = new JButton("Show Database");
+
 
 
         // Set up layout for panelMain
