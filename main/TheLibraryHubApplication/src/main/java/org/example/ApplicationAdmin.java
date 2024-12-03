@@ -6,12 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.print.Book;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 /*
@@ -26,7 +24,7 @@ and create and show the authenticator UI, once user is authenticated (from authe
 change this to mainUI.java
 
  */
-public class Application
+public class ApplicationAdmin
 {
     private JFrame frame;
     private JLabel nameLabel, cartLabel;
@@ -43,7 +41,7 @@ public class Application
     private ArrayList<String> booksAdded = new ArrayList<String>();
     private String username;
 
-    Application(String username)
+    ApplicationAdmin(String username)
     {
         databaseManager = new DatabaseManager();
         frame = new JFrame();
@@ -159,6 +157,7 @@ public class Application
             public void actionPerformed(ActionEvent e) {
                 //TODO get user logged in
                 databaseManager.checkOut(booksAdded, getUsername());
+                addToCartTextField.setText("");
                 //all checks are performed in addtocart button, so i can just implement checkout
 
             }
@@ -302,15 +301,5 @@ public class Application
             throw new RuntimeException(g);
         }
         return checkedOutState;
-    }
-
-    // this method replaces checkedOutState
-    // return the amount of inventory of the book searched
-    //TODO remove this method: not doing cuz of time constraints
-    private int inventoryState(String bookToSearch){
-        int inventoryState = 0;
-        ResultSet rs = databaseManager.getBooksInventory();
-
-        return inventoryState;
     }
 }
