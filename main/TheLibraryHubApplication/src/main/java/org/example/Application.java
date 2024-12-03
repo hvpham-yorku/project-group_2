@@ -135,7 +135,6 @@ public class Application
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO get user logged in
                 databaseManager.checkOut(booksAdded, getUsername());
                 addToCartTextField.setText("");
                 //all checks are performed in addtocart button, so i can just implement checkout
