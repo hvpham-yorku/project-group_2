@@ -27,20 +27,37 @@ change this to mainUI.java
 public class ApplicationAdmin extends Application
 {
     private JButton returnButton;
-
-
+    private JButton showDbButton;
 
     ApplicationAdmin(String username)
     {
         super(username);
+        showDbButton = new JButton("Show Inventory");
         returnButton = new JButton("Return");
         frame.add(returnButton);
+        frame.add(showDbButton);
 
         returnButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 databaseManager.returnBook(textArea.getText(), getUsername());
+            }
+        });
+        showDbButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ResultSet rs = databaseManager.getBooks();
+                try  {
+                    int i = 0;
+                    while (rs.next()) {
+                        booksParser(rs, books, i);
+                        i++;
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                displayJTable(books);
             }
         });
     }

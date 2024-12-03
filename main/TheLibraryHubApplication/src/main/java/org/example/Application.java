@@ -28,13 +28,12 @@ public class Application
 {
     protected JFrame frame;
     private JLabel nameLabel, cartLabel;
-    private JButton showDbButton;
     private JButton searchButton, addToCartButton, checkoutButton;
     protected JTextField textArea;
     private JTextArea addToCartTextField;
     protected DatabaseManager databaseManager;
     private BookRepository bookRepository;
-    private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
+    protected String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
     private KeyListener kl;
     private String  cartItems = "";
@@ -47,7 +46,6 @@ public class Application
         frame = new JFrame();
         nameLabel = new JLabel("Enter Name of Book:");
         cartLabel = new JLabel("Cart Items:");
-        showDbButton = new JButton("Show Inventory");
         searchButton = new JButton("Search");
         addToCartButton = new JButton("Add To Cart");
         checkoutButton = new JButton("Checkout");
@@ -58,7 +56,6 @@ public class Application
         frame.setLayout(new FlowLayout());
         frame.add(nameLabel);
         frame.add(textArea);
-        frame.add(showDbButton);
         frame.add(searchButton);
         frame.add(addToCartButton);
         frame.add(cartLabel);
@@ -97,22 +94,6 @@ public class Application
             @Override
             public void actionPerformed(ActionEvent e) {
                 search();
-            }
-        });
-        showDbButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ResultSet rs = databaseManager.getBooks();
-                try  {
-                    int i = 0;
-                    while (rs.next()) {
-                        booksParser(rs, books, i);
-                        i++;
-                    }
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-                displayJTable(books);
             }
         });
         addToCartButton.addActionListener(new ActionListener() {
@@ -163,12 +144,12 @@ public class Application
             }
         });
     }
-    public String getUsername() {
+    protected String getUsername() {
         return this.username;
-    }
+    } //check username
 
 
-    private void displayJTable(String books[][]){
+    protected void displayJTable(String books[][]){
         String[] columnNames = {"id", "book name", "isbnNumber", "checked_out", "due_date", "checked_out_date", "current_book_user"};
 
         JFrame f = new JFrame();
@@ -203,7 +184,7 @@ public class Application
     // it will parse the books Table, use this to make changes so call this method only once a
     // and everything is updated
 
-    private static void booksParser(ResultSet rs, String books[][], int i) throws SQLException{
+    protected static void booksParser(ResultSet rs, String books[][], int i) throws SQLException{
 
         books[i][0] = rs.getString(1); // id
         books[i][1] = rs.getString(2); // name of book
