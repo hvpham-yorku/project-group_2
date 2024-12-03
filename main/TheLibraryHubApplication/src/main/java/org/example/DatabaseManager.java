@@ -39,7 +39,7 @@ create different function for each table
         }
         return this.rs;
     }
-
+//TODO remove method not implementing do to time constraints
     public ResultSet getBooksInventory(){
         try {
             this.rs = this.st.executeQuery("select * from book_inventory");
@@ -56,7 +56,7 @@ create different function for each table
         for (int i = 0; i < listOfAddedBooks.size(); i++)
         {
             String sql = "UPDATE books SET checked_out = true, current_book_user = ?, checked_out_date = CURRENT_TIMESTAMP, due_date = CURRENT_TIMESTAMP + INTERVAL '2 weeks' WHERE name = ?";
-            String sql_2 = "UPDATE book_inventory SET quantity_left = quantity_left - 1 WHERE name = ?";
+            //String sql_2 = "UPDATE book_inventory SET quantity_left = quantity_left - 1 WHERE name = ?";
             //String sql_3 = "UPDATE users SET checked_out_books = array_append(checked_out_books, ?) where username = ?";
 
             try {
@@ -78,6 +78,25 @@ create different function for each table
         }
 
         JOptionPane.showMessageDialog(null, "You have checked out "+ listOfAddedBooks.toString() + " and they are due in 2 weeks from today. ");
+    }
+
+    public void returnBook(String bookName, String username) {
+        System.out.println("Logged in : "+ username);
+
+        String sql = "UPDATE books SET checked_out = false, current_book_user = NULL, checked_out_date = NULL, due_date = NULL WHERE name = ?";
+        try{
+            PreparedStatement pstmt = this.con.prepareStatement(sql);
+
+            pstmt.setString(1, bookName); // name of book
+            pstmt.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        JOptionPane.showMessageDialog(null, "You have returned the book: "+ bookName + ".\n Thank you.");
+
+
     }
 
 
