@@ -2,7 +2,7 @@ package org.example;
 
 
 public class UserService {
-    private static final String masterPassword = "master"; // use this password to verify a librarian class of user.
+    private static final String admin = "admin"; // use this password to verify a librarian class of user.
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -11,9 +11,9 @@ public class UserService {
     }
 
 
-    public boolean handleRegisterUser(String firstName, String lastName, String userName, String password) {
+    public boolean handleRegisterUser(String firstName, String lastName, String userName, String password, String adminpassword) {
 
-        String validationMessage = validateUserRegistration(firstName, lastName, userName, password);
+        String validationMessage = validateUserRegistration(firstName, lastName, userName, password, adminpassword);
 
         if (!validationMessage.isEmpty()) {
             return false; 
@@ -29,7 +29,7 @@ public class UserService {
         User newUser = null;
 
 
-        newUser = new User(firstName, lastName, userName, password);
+        newUser = new User(firstName, lastName, userName, password); //TODO change from here make another method to create admin class / in the original method add usr class as default
 
         userRepository.createUser(newUser);
         
@@ -40,7 +40,7 @@ public class UserService {
         return userRepository.validateUser(username, password);
     }
 
-    private String validateUserRegistration(String firstName, String lastName, String userName, String password) {
+    private String validateUserRegistration(String firstName, String lastName, String userName, String password, String adminpassword) {
         StringBuilder missingFields = new StringBuilder("Missing fields: ");
 
         if (firstName == null || firstName.trim().isEmpty()) missingFields.append("\nFirst Name, ");
@@ -51,7 +51,9 @@ public class UserService {
 
         if (password == null || password.trim().isEmpty()) missingFields.append("\nPassword, ");
 
-        
+        if (adminpassword == null || adminpassword.trim().isEmpty()) missingFields.append("\nPassword, ");
+
+
 
         if (missingFields.length() > "Missing fields: ".length()) {
 

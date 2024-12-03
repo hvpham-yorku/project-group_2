@@ -15,12 +15,13 @@ public class RegisterView extends JFrame{
     private JLabel passLabel;
     private JLabel firstNameLabel;
     private JLabel lastNameLabel;
+    private JLabel adminpassword;
     private JTextField first_name;
     private JTextField last_name;
     private JPasswordField password;
     private JTextField username;
+    private JTextField admin_password;
     private JButton registerClick;
-    private JButton loginClick;
     private DatabaseManager databaseManager;
 
     private static LoginController loginController;
@@ -40,7 +41,8 @@ public class RegisterView extends JFrame{
         first_name = new JTextField(20);  // 20 columns wide
         lastNameLabel = new JLabel("Last Name:");
         last_name = new JTextField(20);  // 20 columns wide
-        loginClick = new JButton("Login");
+        adminpassword = new JLabel("Type the admin password:");
+        admin_password = new JTextField(20);
         registerClick = new JButton("Register");
 
 
@@ -56,6 +58,8 @@ public class RegisterView extends JFrame{
         panelMain.add(username);
         panelMain.add(passLabel);
         panelMain.add(password);
+        panelMain.add(adminpassword);
+        panelMain.add(admin_password);
         panelMain.add(registerClick);
 
 
@@ -74,7 +78,7 @@ public class RegisterView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                boolean success = loginController.onRegisterButtonClick(first_name.getText(), last_name.getText(), username.getText(), String.valueOf(password.getPassword()));
+                boolean success = loginController.onRegisterButtonClick(first_name.getText(), last_name.getText(), username.getText(), String.valueOf(password.getPassword()), admin_password.getText());
 
                 if (success){
                     dispose();
