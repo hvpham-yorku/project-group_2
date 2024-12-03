@@ -32,8 +32,7 @@ public class Application
     protected JTextField textArea;
     private JTextArea addToCartTextField;
     protected DatabaseManager databaseManager;
-    private BookRepository bookRepository;
-    protected String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
+    private String books[][] = new String[25][7]; //might have to change later on, right now this is hardcoded ******@@@@@@@@@@@@
     private String booksFound[][] = new String[25][7];
     private KeyListener kl;
     private String  cartItems = "";
