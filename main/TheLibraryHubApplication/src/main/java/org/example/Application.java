@@ -39,8 +39,7 @@ public class Application
     private ArrayList<String> booksAdded = new ArrayList<String>();
     private String username;
 
-    Application(String username)
-    {
+    Application(String username) {
         databaseManager = new DatabaseManager();
         frame = new JFrame();
         nameLabel = new JLabel("Enter Name of Book:");
