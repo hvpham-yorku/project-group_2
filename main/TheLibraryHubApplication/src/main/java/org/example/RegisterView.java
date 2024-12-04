@@ -20,7 +20,7 @@ public class RegisterView extends JFrame{
     private JTextField last_name;
     private JPasswordField password;
     private JTextField username;
-    private JTextField admin_password;
+    private JPasswordField admin_password;
     private JButton registerClick;
     private DatabaseManager databaseManager;
 
@@ -42,7 +42,7 @@ public class RegisterView extends JFrame{
         lastNameLabel = new JLabel("Last Name:");
         last_name = new JTextField(20);  // 20 columns wide
         adminpassword = new JLabel("Type the admin password:");
-        admin_password = new JTextField(20);
+        admin_password = new JPasswordField(20);
         registerClick = new JButton("Register");
 
 
