@@ -8,7 +8,7 @@ import static org.example.Main.*;
 public class UserRepository {
 
     public void createUser(User user) {
-        String sql = "INSERT INTO users (firstName, lastName, username, password) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (firstName, lastName, username, password, class) VALUES (?, ?, ?, ?, ?)";
     
         try (Connection conn = DriverManager.getConnection(urlDatabase, usernameDatabase , passwordDatabase);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -21,6 +21,8 @@ public class UserRepository {
                 pstmt.setString(3, user.getUsername());
 
                 pstmt.setString(4, user.getPassword());
+
+                pstmt.setString(5, user.getAdminPassword());
 
                 pstmt.executeUpdate();
 

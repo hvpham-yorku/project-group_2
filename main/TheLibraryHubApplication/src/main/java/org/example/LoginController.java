@@ -1,10 +1,6 @@
 package org.example;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.EventHandler;
 
 public class LoginController {
 
@@ -45,9 +41,9 @@ public class LoginController {
 
 
     // Event Handler for Register Button
-    public boolean onRegisterButtonClick(String firstName, String lastName, String username, String password) {
+    public boolean onRegisterButtonClick(String firstName, String lastName, String username, String password, String adminpassword) {
 
-       Boolean registered = userService.handleRegisterUser(firstName, lastName, username, password);
+       Boolean registered = userService.handleRegisterUser(firstName, lastName, username, password, adminpassword);
 
        if(registered){
            //go back to login

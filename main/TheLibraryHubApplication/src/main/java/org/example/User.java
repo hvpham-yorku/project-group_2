@@ -7,12 +7,23 @@ public class User {
 	private String lastName;
 	private String username;
 	private String password;
+    private String adminPassword;
 
+    //create admin
+    public User(String firstName, String lastName, String username, String password, String adminPassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.adminPassword = "admin";
+    }
+    //create user
     public User(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
+        this.adminPassword = "usr";
     }
 
 
@@ -33,6 +44,10 @@ public class User {
         return password;
     }
 
+    public String getAdminPassword() {
+        return adminPassword;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -47,5 +62,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
     }
 }
