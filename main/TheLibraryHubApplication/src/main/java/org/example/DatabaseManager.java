@@ -74,12 +74,12 @@ create different function for each table
 //                PreparedStatement pstmt2 = this.con.prepareStatement(sql_2);
 //                pstmt2.setString(1, username);
 //                pstmt2.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "You have checked out "+ listOfAddedBooks.toString() + " and they are due in 2 weeks from today. ");
-
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
             }
+            JOptionPane.showMessageDialog(null, "You have checked out "+ listOfAddedBooks.toString() + " and they are due in 2 weeks from today. ");
+
         }
     }
 

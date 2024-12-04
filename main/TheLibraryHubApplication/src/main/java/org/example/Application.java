@@ -136,6 +136,7 @@ public class Application
             public void actionPerformed(ActionEvent e) {
                 databaseManager.checkOut(booksAdded, getUsername());
                 addToCartTextField.setText("");
+                booksAdded.clear();
                 //all checks are performed in addtocart button, so i can just implement checkout
 
             }
