@@ -29,7 +29,7 @@ public class ApplicationAdmin extends Application
     private JButton returnButton;
     private JButton showDbButton;
 
-    ApplicationAdmin(String username)
+    public ApplicationAdmin(String username)
     {
         super(username);
         showDbButton = new JButton("Show Inventory");
