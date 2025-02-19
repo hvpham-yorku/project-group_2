@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'jacoco'
 }
 
 group = 'org.example'
@@ -13,6 +14,7 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-core:5.6.0'
     implementation 'org.postgresql:postgresql:42.5.1' // PostgreSQL JDBC drive
 
 
@@ -21,8 +23,28 @@ dependencies {
 test {
     useJUnitPlatform()
     testLogging.showStandardStreams=true //remove if not needed. might need to add aggregate in dependencies.
+    finalizedBy jacocoTestReport
 }
 
+jacocoTestReport {
+    dependsOn test
+
+}
+
+jacocoTestCoverageVerification {
+    dependsOn jacocoTestReport
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.001 // limit for validation ; taken from https://www.youtube.com/watch?v=3B8Zg_dlfKI
+            }
+        }
+    }
+}
+
+check {
+    dependsOn jacocoTestCoverageVerification
+}
 application {
     // Define the main class for the application.
     mainClass.set('org.example.Main')
