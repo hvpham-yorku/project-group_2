@@ -43,7 +43,7 @@ public class UserService {
         return userRepository.validateUser(username, password);
     }
 
-    private String validateUserRegistration(String firstName, String lastName, String userName, String password, String adminpassword) {
+    public String validateUserRegistration(String firstName, String lastName, String userName, String password, String adminpassword) {
         StringBuilder missingFields = new StringBuilder("Missing fields: ");
 
         if (firstName == null || firstName.trim().isEmpty())
