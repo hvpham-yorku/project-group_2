@@ -155,5 +155,5 @@ class UserRepositoryTest {
         User user = userRepository.validateUser("wrongUser", "mypassword");
 
         assertNull(user);
-    } 
+    }
 }
