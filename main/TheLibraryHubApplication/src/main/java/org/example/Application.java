@@ -39,7 +39,7 @@ public class Application
     private ArrayList<String> booksAdded = new ArrayList<String>();
     private String username;
 
-    Application(String username) {
+    public Application(String username) {
         databaseManager = new DatabaseManager();
         frame = new JFrame();
         nameLabel = new JLabel("Enter Name of Book:");
@@ -142,7 +142,7 @@ public class Application
             }
         });
     }
-    protected String getUsername() {
+    public String getUsername() {
         return this.username;
     } //check username
 

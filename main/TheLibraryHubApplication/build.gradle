@@ -20,6 +20,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    testLogging.showStandardStreams=true //remove if not needed. might need to add aggregate in dependencies.
 }
 
 application {
